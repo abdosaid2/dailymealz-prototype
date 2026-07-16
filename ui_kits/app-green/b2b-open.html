@@ -1,0 +1,76 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="B2B — Open Ordering" subtitle="Day-by-day against the company allowance: order/cancel days, exhausted state, cut-off note" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Open ordering</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 90px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);margin-top:12px}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="B2B Open Ordering (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,TabBar,StatusBadge}=window.DailymealzAppRedesignBrief_310f67;
+const INIT=[
+{d:'Mon 19',state:'ordered',meal:'Grilled Salmon & Quinoa',locked:true},
+{d:'Tue 20',state:'none'},
+{d:'Wed 21',state:'none'},
+{d:'Thu 22',state:'none'}];
+function App(){
+  const [days,setDays]=React.useState(INIT);
+  const ordered=days.filter(x=>x.state==='ordered').length;
+  const left=Math.max(0,3-ordered); // 3 company lunches left this month before this screen's actions
+  const order=i=>{if(left<=0)return;setDays(days.map((x,j)=>j===i?{...x,state:'ordered',meal:'Pick a meal by 9 PM'}:x));};
+  const cancel=i=>setDays(days.map((x,j)=>j===i?{...x,state:'none',meal:null}:x));
+  return <div className="app">
+    <div className="dm-dots" style={{padding:'20px 20px 14px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{width:48,height:48,borderRadius:16,background:'var(--dm-sky-100)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 20px var(--font-display)',color:'var(--dm-sky-700)',flex:'none'}}>T</div>
+        <div style={{flex:1,minWidth:0}}>
+          <h1 style={{margin:0,font:'600 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>Order when you're in</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>Tawuniya allowance · Olaya HQ</span>
+        </div>
+        <a href="./b2b-org-info.html" aria-label="Organization info" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',font:'700 15px var(--font-display)',flex:'none'}}>i</a>
+      </div>
+    </div>
+    <div className="scroll">
+      <div className="card" style={{padding:'13px 16px',marginTop:0}} data-screen-label="Monthly allowance">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
+          <span className="micro">January allowance</span>
+          <b style={{font:'700 15px var(--font-display)',fontVariantNumeric:'tabular-nums'}}>{12-left-ordered+ordered} of 12 used</b>
+        </div>
+        <div style={{height:7,borderRadius:4,background:'var(--dm-sand)',marginTop:8,overflow:'hidden'}}><i style={{display:'block',height:'100%',width:((12-left)/12*100)+'%',borderRadius:4,background:left===0?'var(--dm-amber-500)':'var(--dm-green-500)',transition:'width .3s var(--ease-serve)'}}/></div>
+        {left===0?<span style={{display:'block',marginTop:7,font:'500 11.5px/15px var(--font-ui)',color:'var(--dm-amber-700)'}}>Allowance finished for January — it resets Feb 1, or order on your own card.</span>
+        :<span style={{display:'block',marginTop:7,font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-2)'}}><b style={{color:'var(--dm-ink)'}}>{left}</b> company {left===1?'lunch':'lunches'} left to book this month.</span>}
+      </div>
+      <span className="micro" style={{display:'block',margin:'18px 2px 0'}}>This week</span>
+      {days.map((x,i)=><div key={x.d} className="card" style={{padding:'12px 14px',display:'flex',alignItems:'center',gap:12}} data-screen-label={'Open day '+x.d}>
+        <b style={{font:'700 14px var(--font-display)',width:56,flex:'none'}}>{x.d}</b>
+        <div style={{flex:1,minWidth:0}}>
+          {x.state==='ordered'?<React.Fragment>
+            <b style={{display:'block',font:'600 13.5px/17px var(--font-display)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{x.meal}</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{x.locked?'Locked · kitchens cooking':'On company allowance'}</span>
+          </React.Fragment>
+          :<span style={{font:'500 13px var(--font-ui)',color:'var(--dm-ink-3)'}}>No lunch booked</span>}
+        </div>
+        {x.state==='ordered'
+          ?x.locked?<StatusBadge status="accepted" size="sm"/>
+          :<div style={{display:'flex',gap:8,alignItems:'center',flex:'none'}}>
+            <a href="./meal-selection-calendar.html" style={{font:'600 12px var(--font-ui)'}}>Pick meal</a>
+            <button onClick={()=>cancel(i)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'600 12px var(--font-ui)',color:'var(--dm-terra-700)',padding:0}}>Cancel</button>
+          </div>
+          :<Button variant={left>0?'secondary':'outline'} size="sm" disabled={left===0} onClick={()=>order(i)} style={{flex:'none'}}>{left>0?'Order day':'No allowance'}</Button>}
+      </div>)}
+      <div style={{margin:'14px 2px 0',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>Company cut-off: book a day before <b style={{color:'var(--dm-ink)'}}>9:00 PM</b> the night before. Want the same days every week? <a href="./b2b-recurring.html" style={{fontWeight:600}}>Switch to a standing schedule</a>.</div>
+    </div>
+    <TabBar active="subs"/>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

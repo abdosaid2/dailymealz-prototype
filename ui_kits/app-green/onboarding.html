@@ -1,0 +1,78 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Onboarding — Green" subtitle="Splash brand moment, flow chooser, live EN⇄AR — under the brand green" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Onboarding</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%}
+@keyframes dotwave{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-4px)}}
+</style></head>
+<body data-screen-label="Onboarding & Opening (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const T={
+en:{dir:'ltr',toggle:'عربي',head:'Lunch, handled.',sub:'Fresh lunches from Riyadh’s kitchens, delivered to your desk on a plan that fits your week.',me:'For me',meSub:'Pick a plan, pay your way',work:'Through my work',workSub:'Your company sponsors meals at the office',cta:'Start browsing',guest:'Browse as a guest — sign in only when you subscribe.',have:'Already have an account?',login:'Log in',slow:'Setting your table…',photo:'photo · hero dish, overhead on sufra'},
+ar:{dir:'rtl',toggle:'English',head:'غداك مرتّب.',sub:'وجبات طازجة من مطابخ الرياض، توصل لمكتبك باشتراك يناسب أسبوعك.',me:'لنفسي',meSub:'اختر خطتك وادفع بطريقتك',work:'عن طريق شركتي',workSub:'شركتك تتكفل بوجبات المكتب',cta:'ابدأ التصفح',guest:'تصفح كضيف — سجّل دخولك عند الاشتراك فقط.',have:'عندك حساب؟',login:'سجّل دخولك',slow:'نجهّز سفرتك…',photo:'photo · hero dish, overhead on sufra'}};
+function StatusBar(){return <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 24px 6px',font:'600 14px var(--font-ui)'}}>
+  <span style={{direction:'ltr'}}>12:04</span>
+  <span style={{display:'flex',gap:5,alignItems:'center'}}>
+    <span style={{display:'flex',gap:1.5,alignItems:'flex-end'}}>{[4,6,8,10].map(h=><i key={h} style={{width:3,height:h,background:'var(--dm-ink)',borderRadius:1}}/>)}</span>
+    <i style={{width:22,height:11,border:'1.5px solid var(--dm-ink)',borderRadius:3.5,display:'inline-flex',padding:1.5}}><i style={{width:'72%',background:'var(--dm-ink)',borderRadius:1.5}}/></i>
+  </span></div>;}
+function Wordmark({size=38}){return <span style={{font:`800 ${size}px/1 var(--font-display)`,letterSpacing:'-.01em'}}>dailymealz<i style={{display:'inline-block',width:size*.24,height:size*.24,borderRadius:'50%',background:'var(--dm-saffron-500)',marginInlineStart:3}}/></span>;}
+function Splash({slow}){
+  return <div className="dm-dots" data-screen-label="Splash" style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:14,background:'var(--dm-paper)'}}>
+    <div style={{width:120,height:120,borderRadius:'50%',background:'var(--dm-saffron-500)',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'var(--sh-2)'}}>
+      <div style={{width:64,height:64,borderRadius:'50%',border:'3px solid var(--dm-ink)',opacity:.9}}/>
+    </div>
+    <Wordmark/>
+    <span style={{font:'500 var(--fs-label)/var(--lh-label) var(--font-ui)',color:'var(--dm-ink-2)'}}>دايلي ميلز</span>
+    <div style={{display:'flex',gap:6,marginTop:18,height:22,alignItems:'center'}}>
+      {[0,1,2].map(i=><i key={i} style={{width:7,height:7,borderRadius:'50%',background:'var(--dm-saffron-500)',animation:`dotwave 1.2s ${i*150}ms infinite`}}/>)}
+    </div>
+    <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-3)',height:16,opacity:slow?1:0,transition:'opacity .4s'}}>Setting your table…</span>
+  </div>;}
+function App(){
+  const [phase,setPhase]=React.useState('splash');
+  const [slow,setSlow]=React.useState(false);
+  const [lang,setLang]=React.useState('en');
+  const [flow,setFlow]=React.useState('me');
+  const t=T[lang];
+  React.useEffect(()=>{const a=setTimeout(()=>setSlow(true),1400);const b=setTimeout(()=>setPhase('open'),2700);return()=>{clearTimeout(a);clearTimeout(b)};},[]);
+  if(phase==='splash')return <div className="app"><Splash slow={slow}/></div>;
+  return <div className="app" dir={t.dir} lang={lang} data-screen-label="Opening — choose flow" style={{display:'flex',flexDirection:'column',animation:'dm-serve var(--dur-serve) var(--ease-serve) both'}}>
+    <div className="dm-dots"><StatusBar/>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 20px 0'}}>
+        <Wordmark size={24}/>
+        <button onClick={()=>setLang(lang==='en'?'ar':'en')} style={{appearance:'none',cursor:'pointer',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',borderRadius:'var(--r-pill)',padding:'8px 16px',font:'600 13px var(--font-ui)',color:'var(--dm-ink)',minHeight:38}}>{t.toggle}</button>
+      </div>
+    </div>
+    <div style={{flex:1,overflowY:'auto',padding:'10px 24px 0',display:'flex',flexDirection:'column'}}>
+      <div style={{display:'flex',justifyContent:'center',margin:'14px 0 18px'}}>
+        <div className="dm-photo" style={{width:190,height:190,borderRadius:'50%',boxShadow:'var(--sh-2)',border:'6px solid var(--dm-surface)'}}><span className="dm-photo-note">{t.photo}</span></div>
+      </div>
+      <h1 style={{margin:0,font:'700 var(--fs-d1)/var(--lh-d1) var(--font-display)',textWrap:'pretty'}}>{t.head}</h1>
+      <p style={{margin:'8px 0 0',font:'400 var(--fs-body)/var(--lh-body) var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>{t.sub}</p>
+      <div style={{display:'flex',gap:10,marginTop:20}}>
+        {[['me',t.me,t.meSub],['work',t.work,t.workSub]].map(([k,l,s])=>
+        <button key={k} onClick={()=>setFlow(k)} style={{flex:1,textAlign:'start',cursor:'pointer',appearance:'none',background:'var(--dm-surface)',border:flow===k?'2px solid var(--dm-saffron-500)':'1px solid var(--dm-line)',boxShadow:flow===k?'var(--sh-2)':'var(--sh-1)',borderRadius:'var(--r-card)',padding:'14px 14px 12px',display:'flex',flexDirection:'column',gap:4,minHeight:104}}>
+          <i style={{width:12,height:12,borderRadius:'50%',border:flow===k?'4px solid var(--dm-saffron-500)':'2px solid var(--dm-line-strong)',background:'var(--dm-surface)',marginBottom:2}}/>
+          <b style={{font:'600 15px/19px var(--font-display)',color:'var(--dm-ink)'}}>{l}</b>
+          <span style={{font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-2)'}}>{s}</span>
+        </button>)}
+      </div>
+    </div>
+    <div style={{padding:'14px 24px 26px',display:'flex',flexDirection:'column',gap:12}}>
+      <a href={flow==='me'?'./home-plans.html':'./b2b-setup.html'} style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>{t.cta}</Button></a>
+      <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-3)',textAlign:'center'}}>{t.guest}</span>
+      <span style={{font:'400 13px var(--font-ui)',color:'var(--dm-ink-2)',textAlign:'center'}}>{t.have} <a href="./auth-login.html" style={{fontWeight:700}}>{t.login}</a></span>
+    </div>
+    <button aria-label="Support chat" style={{position:'absolute',insetInlineEnd:18,bottom:118,width:52,height:52,borderRadius:'50%',border:'1px solid var(--dm-line)',background:'var(--dm-surface)',boxShadow:'var(--sh-2)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',font:'700 20px var(--font-display)',color:'var(--dm-saffron-700)'}}>؟</button>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

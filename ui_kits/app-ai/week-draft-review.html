@@ -1,0 +1,91 @@
+<!-- @dsCard group="App Screens (AI)" viewport="390x844" name="AI — Drafted Week Review" subtitle="The assistant pre-picks the week; approve in one gesture, steer any day by tap, re-roll, or plain words" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz AI — Your week, drafted</title>
+<link rel="stylesheet" href="../../styles-ai.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 18px 10px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.day{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:16px;box-shadow:var(--sh-1);padding:12px;margin-top:10px;cursor:pointer}
+.day.open{border:2px solid var(--dm-green-500);padding:11px}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+.reroll{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--dm-line-strong);background:var(--dm-surface);color:var(--dm-ink-2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;transition:transform var(--dur-tap) var(--ease-serve)}
+.reroll:active{transform:rotate(-140deg) scale(.94)}
+</style></head>
+<body data-screen-label="AI — Drafted Week Review"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip,MacroChips}=window.DailymealzAppRedesignBrief_310f67;
+const Mic=()=><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="3.5" width="6" height="10.5" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v2.5"/></svg>;
+const Redo=()=><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 10A8 8 0 0 1 18 5.5l2.5 2.5M20.5 3.5V8h-4.5M19.5 14A8 8 0 0 1 6 18.5L3.5 16M3.5 20.5V16H8"/></svg>;
+const DAYS=[
+ {d:'SUN',n:18,alts:[{name:'Chicken Kabsa',k:'Wafra Kitchen',kcal:612,p:38,c:52,f:18,why:'your most re-ordered dish — one of your two rice days'},{name:'Grilled Chicken Freekeh',k:'Wafra Kitchen',kcal:545,p:41,c:44,f:16,why:'same kitchen, freekeh instead of rice'}]},
+ {d:'MON',n:19,alts:[{name:'Pomegranate Quinoa Salad',k:'Lemona',kcal:486,p:24,c:48,f:20,why:'you start weeks light — 3 of your last 4 Mondays'},{name:'Halloumi Grain Bowl',k:'Lemona',kcal:512,p:26,c:46,f:22,why:'light start, protein from halloumi'}]},
+ {d:'TUE',n:20,alts:[{name:'Beef Kofta & Freekeh',k:'Nabta',kcal:655,p:42,c:50,f:24,why:'gym day — protein first'},{name:'Grilled Salmon & Greens',k:'Nabta',kcal:498,p:38,c:18,f:28,why:'gym-day protein, barely any carbs'}]},
+ {d:'WED',n:21,alts:[{name:'Musakhan Roll',k:'Zaad',kcal:590,p:31,c:55,f:22,why:'new kitchen — close to your taste, no rice'},{name:'Chicken Shawarma Plate',k:'Zaad',kcal:575,p:35,c:48,f:21,why:'the safer pick from the new kitchen'}]},
+ {d:'THU',n:22,alts:[{name:'Shish Tawook & Saffron Rice',k:'Wafra Kitchen',kcal:640,p:44,c:51,f:19,why:'gym day — repeats your ★5 from last week'},{name:'Beef Tenderloin Bowl',k:'Wafra Kitchen',kcal:610,p:45,c:38,f:24,why:'gym-day protein without the rice base'}]},
+];
+function App(){
+  const [pick,setPick]=React.useState([0,0,0,0,0]);
+  const [open,setOpen]=React.useState(3);
+  const reroll=i=>setPick(p=>p.map((v,j)=>j===i?(v+1)%DAYS[i].alts.length:v));
+  const meals=DAYS.map((d,i)=>d.alts[pick[i]]);
+  const avg=Math.round(meals.reduce((s,m)=>s+m.kcal,0)/5);
+  return <div className="app">
+    <div style={{padding:'16px 18px 4px',display:'flex',alignItems:'center',gap:10}}>
+      <a href="./onboarding-intake.html" aria-label="Back" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <div style={{flex:1}}>
+        <h1 style={{margin:0,font:'700 var(--fs-title)/var(--lh-title) var(--font-display)'}}>Your week, drafted</h1>
+        <span style={{font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>Sun 18 – Thu 22 · Balanced</span>
+      </div>
+      <a href="../app-green/meal-selection-calendar.html" style={{font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>Edit by hand</a>
+    </div>
+    <div className="scroll">
+      <div style={{margin:'10px 2px 2px'}} data-screen-label="Draft summary">
+        <div className="ai-att"><i className="ai-dot"></i>Mealz</div>
+        <p className="ai-msg" style={{margin:'5px 0 0',font:'400 13.5px/19px var(--font-ui)'}}>Five lunches, averaging {avg} kcal — under your 660 budget. Protein lands on your gym days, rice only twice, and one new kitchen to try. Tap any day to steer it.</p>
+      </div>
+      {DAYS.map((d,i)=>{const m=meals[i];return <section key={d.d} className={'day'+(open===i?' open':'')} onClick={()=>setOpen(open===i?null:i)} data-screen-label={'Day '+d.d}>
+        <div style={{display:'flex',gap:11,alignItems:'center'}}>
+          <div style={{width:34,flex:'none',textAlign:'center'}}>
+            <span className="micro" style={{display:'block'}}>{d.d}</span>
+            <b style={{font:'700 17px/20px var(--font-display)'}}>{d.n}</b>
+          </div>
+          <div key={pick[i]} className="dm-photo" style={{width:52,height:52,flex:'none',animation:'dm-serve var(--dur-serve) var(--ease-serve) both'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}} key={'t'+pick[i]}>
+            <b style={{display:'block',font:'600 14px/18px var(--font-display)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{m.name}</b>
+            <span style={{font:'500 10.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>{m.k}</span>
+            <MacroChips kcal={m.kcal} protein={m.p} carbs={m.c} fat={m.f} size="sm" style={{marginTop:3}}/>
+          </div>
+          <button className="reroll" aria-label={'Re-roll '+d.d} onClick={e=>{e.stopPropagation();reroll(i)}}><Redo/></button>
+        </div>
+        <div className="ai-why" style={{marginTop:8,marginInlineStart:45}}>{m.why}</div>
+        {open===i&&<div style={{display:'flex',gap:7,flexWrap:'wrap',marginTop:10,marginInlineStart:45}} onClick={e=>e.stopPropagation()}>
+          <Chip onClick={()=>reroll(i)}>Lighter</Chip>
+          <Chip onClick={()=>reroll(i)}>No rice</Chip>
+          <Chip onClick={()=>reroll(i)}>Surprise me</Chip>
+        </div>}
+      </section>;})}
+      <div style={{display:'flex',alignItems:'center',gap:10,margin:'12px 4px 2px'}} data-screen-label="Fit line">
+        <div style={{flex:1}}>
+          <div style={{display:'flex',justifyContent:'space-between',font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}><span>Avg {avg} kcal / 660 budget</span><span>{660-avg>=0?660-avg+' under':avg-660+' over'}</span></div>
+          <div style={{height:5,borderRadius:3,background:'var(--dm-sand-2)',marginTop:4,overflow:'hidden'}}><i style={{display:'block',height:'100%',width:Math.min(100,Math.round(avg/660*100))+'%',borderRadius:3,background:avg<=660?'var(--dm-green-500)':'var(--dm-amber-500)'}}/></div>
+        </div>
+      </div>
+      <span style={{display:'block',font:'400 11px/15px var(--font-ui)',color:'var(--dm-ink-3)',margin:'8px 4px 0'}}>Nothing locks until 9:00 PM the night before — change any day, anytime.</span>
+    </div>
+    <div style={{padding:'6px 16px 22px',display:'flex',flexDirection:'column',gap:9,background:'var(--dm-paper)',boxShadow:'0 -8px 20px -14px rgba(42,56,38,.25)'}} data-screen-label="Steer + approve">
+      <div className="ai-composer" style={{boxShadow:'none'}}>
+        <input placeholder="Steer in words — 'no rice', 'lighter'…"/>
+        <button className="ai-icbtn" aria-label="Voice"><Mic/></button>
+      </div>
+      <a href="./daily-brief.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Approve week · 5 lunches</Button></a>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

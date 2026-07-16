@@ -1,0 +1,25 @@
+:root{
+/* warm neutrals — the sufra cloth */
+--dm-paper:#FAF6EE;--dm-surface:#FFFFFF;--dm-sand:#F3ECDD;--dm-sand-2:#EAE0C9;--dm-line:#E8DFCB;--dm-line-strong:#D8CCB0;
+--dm-ink:#261F15;--dm-ink-2:#6A5F4C;--dm-ink-3:#A29477;
+/* saffron — primary, the midday sun */
+--dm-saffron-50:#FCF3E1;--dm-saffron-100:#F9E6C2;--dm-saffron-300:#F3C377;--dm-saffron-500:#EE9B2B;--dm-saffron-600:#D07D10;--dm-saffron-700:#A66008;
+/* support hues — same chroma family */
+--dm-olive-100:#ECEFD4;--dm-olive-500:#7D8C3A;--dm-olive-700:#535F21;
+--dm-teal-100:#DCEDE6;--dm-teal-500:#3E8577;--dm-teal-700:#295E53;
+--dm-beet-100:#F6E1E1;--dm-beet-500:#A34B57;--dm-beet-700:#7A3440;
+--dm-wheat-100:#F6ECCE;--dm-wheat-500:#B8891F;--dm-wheat-700:#83610E;
+--dm-terra-100:#F8E1D6;--dm-terra-500:#C14F2C;--dm-terra-700:#93391C;
+/* semantic */
+--dm-primary:var(--dm-saffron-500);--dm-primary-ink:var(--dm-ink);--dm-primary-press:var(--dm-saffron-600);
+--dm-success:var(--dm-olive-500);--dm-danger:var(--dm-terra-500);
+/* order lifecycle */
+--st-pending-bg:var(--dm-wheat-100);--st-pending-fg:var(--dm-wheat-700);
+--st-accepted-bg:var(--dm-teal-100);--st-accepted-fg:var(--dm-teal-700);
+--st-assigned-bg:var(--dm-saffron-100);--st-assigned-fg:var(--dm-saffron-700);
+--st-delivered-bg:var(--dm-olive-100);--st-delivered-fg:var(--dm-olive-700);
+--st-paused-bg:var(--dm-sand);--st-paused-fg:var(--dm-ink-2);
+--st-failed-bg:var(--dm-terra-100);--st-failed-fg:var(--dm-terra-700);
+/* macros */
+--macro-kcal:var(--dm-ink);--macro-protein:var(--dm-beet-500);--macro-carbs:var(--dm-wheat-500);--macro-fat:var(--dm-teal-500);
+}

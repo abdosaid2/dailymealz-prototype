@@ -1,0 +1,124 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Cart — Arabic (Green)" subtitle="RTL money surfaces under the brand green" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — إتمام الطلب</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column;position:relative}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 150px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:16px;margin-top:12px}
+.micro{font:600 11.5px/var(--lh-micro) var(--font-ui);color:var(--dm-ink-3)}
+.row{display:flex;justify-content:space-between;font:400 13.5px/26px var(--font-ui);color:var(--dm-ink-2)}
+.row b{color:var(--dm-ink);font-weight:600;white-space:nowrap}
+@keyframes spin{to{transform:rotate(1turn)}}
+</style></head>
+<body data-screen-label="Cart & Payment (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const AI=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const M=n=>AI(n.toFixed(2))+' ر.س';
+function AppleMark(){return <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M16.7 12.9c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.9-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.7zM14.4 5.7c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>;}
+function Radio({on}){return <i style={{width:20,height:20,borderRadius:'50%',flex:'none',boxSizing:'border-box',border:on?'6.5px solid var(--dm-saffron-500)':'2px solid var(--dm-line-strong)',background:'var(--dm-surface)'}}/>;}
+function App(){
+  const [wallet,setWallet]=React.useState(true);
+  const [pay,setPay]=React.useState('applepay');
+  const [busy,setBusy]=React.useState(false);
+  const [declined,setDeclined]=React.useState(false);
+  const subtotal=760,disc=38,wal=wallet?18:0;
+  const total=subtotal-disc-wal,vat=total-total/1.15;
+  const doPay=()=>{setBusy(true);setDeclined(false);setTimeout(()=>{setBusy(false);if(pay==='card')setDeclined(true);},1100);};
+  return <div className="app">
+    <div style={{padding:'18px 20px 0'}}>
+      <div style={{display:'flex',alignItems:'center',gap:10}}>
+        <a href="./meal-selection-calendar-ar.html" aria-label="رجوع" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{transform:'scaleX(-1)'}}><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+        <div style={{flex:1}}>
+          <h1 style={{margin:0,font:'600 21px/28px var(--font-display)'}}>إتمام الطلب</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>الخطوة ٤ من ٥ — الدفع هو الأخيرة</span>
+        </div>
+      </div>
+      <div style={{display:'flex',gap:5,marginTop:12}}>{[1,1,1,1,0].map((f,i)=><i key={i} style={{flex:1,height:4,borderRadius:2,background:f?'var(--dm-saffron-500)':'var(--dm-sand-2)'}}/>)}</div>
+    </div>
+    <div className="scroll">
+      {declined&&<div role="alert" style={{marginTop:14,background:'var(--st-failed-bg)',borderRadius:'var(--r-ctl)',padding:'12px 14px',font:'500 13px/19px var(--font-ui)',color:'var(--st-failed-fg)',animation:'dm-serve var(--dur-serve) var(--ease-serve) both'}} data-screen-label="رفض الدفع">
+        رفض البنك عملية الدفع — لم يُخصم شيء وسلّتك محفوظة. جرّب وسيلة أخرى.
+      </div>}
+      <section className="card" data-screen-label="ملخص الطلب">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span className="micro">طلبك</span>
+          <a href="./meal-selection-calendar-ar.html" style={{font:'600 12px var(--font-ui)'}}>راجع الوجبات</a>
+        </div>
+        <div style={{display:'flex',gap:12,alignItems:'center',marginTop:10}}>
+          <div className="dm-photo" style={{width:54,height:54,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div><b style={{font:'700 17px/23px var(--font-display)'}}>التوازن · ٢٠ غداء</b>
+          <span style={{display:'block',font:'400 12px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>الأحد ٢٥ يناير ← الخميس ١٩ فبراير · الجمعة إجازة</span></div>
+        </div>
+        <div style={{borderTop:'1px dashed var(--dm-line)',marginTop:12,paddingTop:11,display:'flex',flexDirection:'column',gap:8}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+            <span style={{font:'400 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>إلى <b style={{color:'var(--dm-ink)',fontWeight:600}}>مكتب العليا · برج التعاونية، الدور ١١</b></span>
+            <a href="./location-address.html" style={{font:'600 12px var(--font-ui)',flex:'none'}}>تغيير</a>
+          </div>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+            <span style={{font:'400 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>الفترة <b dir="ltr" style={{color:'var(--dm-ink)',fontWeight:600,unicodeBidi:'isolate'}}>١٢:٠٠–١:٠٠ م</b></span>
+            <span style={{font:'600 12px var(--font-ui)',color:'var(--dm-saffron-700)',flex:'none'}}>تغيير</span>
+          </div>
+        </div>
+      </section>
+      <section className="card" data-screen-label="التوفير">
+        <span className="micro">التوفير</span>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:10,background:'var(--dm-olive-100)',borderRadius:'var(--r-ctl)',padding:'10px 13px'}}>
+          <span style={{font:'600 13px var(--font-ui)',color:'var(--dm-olive-700)'}}>كود SUFRA20 مطبق — −{AI('38.00')} ر.س</span>
+          <button aria-label="إزالة الكود" style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'700 13px var(--font-ui)',color:'var(--dm-olive-700)'}}>✕</button>
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:12,paddingTop:12,borderTop:'1px dashed var(--dm-line)'}}>
+          <div><b style={{font:'600 13.5px var(--font-ui)'}}>استخدام رصيد المحفظة</b>
+          <span style={{display:'block',font:'400 11.5px var(--font-ui)',color:'var(--dm-ink-2)'}}>{AI('18.00')} ر.س متاح</span></div>
+          <button role="switch" aria-checked={wallet} onClick={()=>setWallet(!wallet)} style={{appearance:'none',cursor:'pointer',width:50,height:30,borderRadius:'var(--r-pill)',border:0,background:wallet?'var(--dm-saffron-500)':'var(--dm-sand-2)',position:'relative',transition:'background .18s'}}>
+            <i style={{position:'absolute',top:3,insetInlineStart:wallet?23:3,width:24,height:24,borderRadius:'50%',background:'var(--dm-surface)',boxShadow:'var(--sh-1)',transition:'inset-inline-start .18s var(--ease-serve)'}}/>
+          </button>
+        </div>
+      </section>
+      <section className="card" data-screen-label="وسائل الدفع">
+        <span className="micro">ادفع بواسطة</span>
+        <div style={{display:'flex',flexDirection:'column',marginTop:6}}>
+          {[['applepay',<span style={{display:'flex',alignItems:'center',gap:6,font:'700 15px var(--font-ui)'}}><AppleMark/> Pay</span>,'مدى، فيزا، ماستركارد — ببصمة الوجه'],
+            ['card','بطاقة مدى ·· ٤٠٢١','إعادة إدخال CVV · تحقق ثلاثي الأبعاد'],
+            ['tamara','تمارا — ٤ دفعات','٤ × '+M(total/4).replace(' ر.س','')+' ر.س · بلا رسوم'],
+            ['cash','الدفع عند الاستلام','المبلغ المضبوط يساعد السائق']].map(([k,t,s])=>
+          <button key={k} onClick={()=>setPay(k)} style={{appearance:'none',cursor:'pointer',textAlign:'start',display:'flex',alignItems:'center',gap:12,background:'none',border:0,borderTop:k!=='applepay'?'1px dashed var(--dm-line)':'none',padding:'12px 2px'}}>
+            <Radio on={pay===k}/>
+            <div style={{flex:1}}><b style={{font:'600 14.5px var(--font-ui)',color:'var(--dm-ink)'}}>{t}</b>
+            <span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span></div>
+          </button>)}
+        </div>
+        <span style={{display:'block',font:'400 11px/16px var(--font-ui)',color:'var(--dm-ink-3)',borderTop:'1px dashed var(--dm-line)',paddingTop:10}}>البطاقات تُحفظ لدى شريك الدفع، وليس على جهازك.</span>
+      </section>
+      <section className="card" data-screen-label="تفاصيل السعر">
+        <div className="row"><span>المجموع الفرعي · ٢٠ غداء</span><b>{M(subtotal)}</b></div>
+        <div className="row" style={{color:'var(--dm-olive-700)'}}><span>كود SUFRA20</span><b style={{color:'var(--dm-olive-700)'}}>−{M(disc)}</b></div>
+        {wallet&&<div className="row" style={{color:'var(--dm-olive-700)'}}><span>المحفظة</span><b style={{color:'var(--dm-olive-700)'}}>−{M(wal)}</b></div>}
+        <div className="row"><span>شامل ضريبة القيمة المضافة ١٥٪</span><b>{M(vat)}</b></div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',borderTop:'1px solid var(--dm-line)',marginTop:8,paddingTop:10}}>
+          <span style={{font:'600 15px var(--font-ui)'}}>الإجمالي</span>
+          <b style={{font:'700 24px var(--font-display)',whiteSpace:'nowrap'}}>{AI(total.toFixed(2))} <span style={{font:'600 13px var(--font-ui)'}}>ر.س</span></b>
+        </div>
+        <span style={{display:'block',textAlign:'start',font:'500 11.5px var(--font-ui)',color:'var(--dm-olive-700)',marginTop:2}}>≈ {AI((total/20).toFixed(1))} ر.س للوجبة بعد التوفير</span>
+      </section>
+    </div>
+    <div style={{position:'absolute',insetInline:0,bottom:0,padding:'12px 20px 26px',background:'rgba(247,246,238,.9)',backdropFilter:'blur(14px)',borderTop:'1px solid var(--dm-line)'}}>
+      {pay==='applepay'
+      ?<button onClick={doPay} disabled={busy} style={{width:'100%',height:56,borderRadius:'var(--r-pill)',border:0,cursor:'pointer',background:'var(--dm-ink)',color:'var(--dm-paper)',font:'600 16px var(--font-ui)',display:'flex',alignItems:'center',justifyContent:'center',gap:7}}>
+        {busy?<i style={{width:18,height:18,border:'2.5px solid var(--dm-sand-2)',borderTopColor:'transparent',borderRadius:'50%',animation:'spin .7s linear infinite'}}/>:<React.Fragment>ادفع {AI(total.toFixed(2))} ر.س عبر <AppleMark/> Pay</React.Fragment>}
+      </button>
+      :<Button block size="lg" onClick={doPay} disabled={busy}>{busy?'نتواصل مع البنك…':pay==='cash'?`أكّد الطلب — ${AI(total.toFixed(2))} ر.س عند الاستلام`:`ادفع ${AI(total.toFixed(2))} ر.س`}</Button>}
+      <span style={{display:'block',textAlign:'center',marginTop:8,font:'500 9.5px var(--font-mono)',color:'var(--dm-ink-3)',letterSpacing:'.03em'}}>demo · saved card declines, other methods succeed</span>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

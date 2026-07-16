@@ -1,0 +1,12 @@
+/* Dailymealz — BRAND GREEN direction (see direction/keep-brand-green.html).
+   Same token API as styles.css; green pages swap this stylesheet in and the
+   shared _ds_bundle.js components restyle untouched. */
+@import url('tokens/fonts.css');
+@import url('tokens-green/colors.css');
+@import url('tokens/typography.css');
+@import url('tokens/spacing.css');
+@import url('tokens-green/effects.css');
+@import url('tokens/base.css');
+/* photo placeholder stripes re-tuned to the sage bone */
+.dm-photo{background:repeating-linear-gradient(-45deg,var(--dm-sand) 0 12px,#E9E7D7 12px 24px)}
+.dm-photo::after{background:radial-gradient(circle at 50% 44%,#FDFDF6 0 33%,rgba(253,253,246,0) 34%)}

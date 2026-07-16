@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dailymealz — Design Prototype</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;background:#F7F6EE;color:#1F261E;line-height:1.6;padding:32px 20px 80px}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:26px;margin-bottom:4px}
+h1 .dot{color:#12B566}
+.tag{display:inline-block;background:#D2F2E0;color:#0A6E3F;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;margin:10px 0 4px}
+.note{font-size:14px;color:#5C685A;margin-bottom:26px}
+h2{font-size:15px;margin:30px 0 4px}
+.sub{font-size:12.5px;color:#5C685A;margin-bottom:12px}
+.flow{background:#fff;border:1px solid #E4E1D0;border-radius:16px;padding:8px 0;margin-bottom:14px;overflow:hidden}
+.flow a{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;text-decoration:none;color:#1F261E;font-size:14.5px;border-bottom:1px dashed #E4E1D0}
+.flow a:last-child{border-bottom:0}
+.flow a:hover{background:#E9F9F0}
+.flow a::after{content:'→';color:#8E9C89}
+.flow a small{color:#8E9C89;font-size:11.5px;margin-inline-start:10px;font-weight:400}
+.flow a b{font-weight:600}
+.ar a{direction:rtl}
+.ar a::after{content:'←'}
+.fb{background:#1F261E;color:#F7F6EE;border-radius:16px;padding:20px 22px;margin-top:34px}
+.fb b{display:block;font-size:15px;margin-bottom:6px}
+.fb p{font-size:13.5px;color:#CFCDB4;margin-bottom:12px}
+.fb a{display:inline-block;background:#12B566;color:#0A2A18;font-weight:700;font-size:14px;text-decoration:none;padding:10px 22px;border-radius:24px}
+.hint{font-size:11.5px;color:#8E9C89;margin-top:26px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>dailymealz<span class="dot">.</span> design prototype</h1>
+<span class="tag">PROTOTYPE — NOT THE LIVE APP</span>
+<p class="note">Static design mockups for feedback. Screens are phone-width — on desktop, open in a narrow window or use your browser's mobile view. Nothing here places real orders.</p>
+
+<h2>1 · The redesigned app — main journey</h2>
+<p class="sub">Follow these in order, as a new customer would.</p>
+<div class="flow">
+  <a href="ui_kits/app-green/onboarding.html"><span><b>Opening</b><small>first launch</small></span></a>
+  <a href="ui_kits/app-green/auth-login.html"><span><b>Login</b><small>phone + code</small></span></a>
+  <a href="ui_kits/app-green/location-address.html"><span><b>Delivery location</b><small>map + address</small></span></a>
+  <a href="ui_kits/app-green/home-plans.html"><span><b>Home</b><small>browse plans</small></span></a>
+  <a href="ui_kits/app-green/plan-details.html"><span><b>Plan details</b></span></a>
+  <a href="ui_kits/app-green/calorie-calculator.html"><span><b>Calorie calculator</b></span></a>
+  <a href="ui_kits/app-green/meal-selection-calendar.html"><span><b>Pick your meals</b><small>calendar</small></span></a>
+  <a href="ui_kits/app-green/meal-details.html"><span><b>Meal details</b></span></a>
+  <a href="ui_kits/app-green/review-meals.html"><span><b>Review meals</b></span></a>
+  <a href="ui_kits/app-green/cart-checkout.html"><span><b>Cart &amp; payment</b></span></a>
+  <a href="ui_kits/app-green/subscription-dashboard.html"><span><b>Your subscription</b><small>daily home</small></span></a>
+</div>
+
+<h2>2 · Everyday use</h2>
+<div class="flow">
+  <a href="ui_kits/app-green/subscription-manage.html"><span><b>Pause / renew / skip</b></span></a>
+  <a href="ui_kits/app-green/subscription-history.html"><span><b>History &amp; past meals</b></span></a>
+  <a href="ui_kits/app-green/rating-flow.html"><span><b>Rate a meal</b></span></a>
+  <a href="ui_kits/app-green/account-wallet.html"><span><b>Account, wallet &amp; rewards</b></span></a>
+  <a href="ui_kits/app-green/payment-cards.html"><span><b>Saved cards</b></span></a>
+  <a href="ui_kits/app-green/nutrition-target.html"><span><b>Daily calorie target</b></span></a>
+  <a href="ui_kits/app-green/dietary-preferences.html"><span><b>Dietary preferences</b></span></a>
+  <a href="ui_kits/app-green/consultation-booking.html"><span><b>Nutrition consultation</b></span></a>
+  <a href="ui_kits/app-green/system-states.html"><span><b>System states</b><small>errors, gates, empty</small></span></a>
+</div>
+
+<h2>3 · For companies (B2B)</h2>
+<div class="flow">
+  <a href="ui_kits/app-green/b2b-setup.html"><span><b>Employee setup</b></span></a>
+  <a href="ui_kits/app-green/b2b-recurring.html"><span><b>Weekly office meals</b></span></a>
+  <a href="ui_kits/app-green/b2b-open.html"><span><b>Order by the day</b></span></a>
+  <a href="ui_kits/app-green/b2b-org-info.html"><span><b>Your company</b></span></a>
+  <a href="ui_kits/app-green/catering-inquiry.html"><span><b>Catering inquiry</b></span></a>
+</div>
+
+<h2>4 · Mealz — the AI concept</h2>
+<p class="sub">A different idea: the app drafts everything, you approve. Tell us if you'd trust it.</p>
+<div class="flow">
+  <a href="ui_kits/app-ai/onboarding-intake.html"><span><b>Tell Mealz about you</b><small>conversational setup</small></span></a>
+  <a href="ui_kits/app-ai/week-draft-review.html"><span><b>Your week, drafted</b><small>approve or steer</small></span></a>
+  <a href="ui_kits/app-ai/daily-brief.html"><span><b>Daily brief</b><small>the new home</small></span></a>
+  <a href="ui_kits/app-ai/swap-conversation.html"><span><b>“I'm traveling Thursday”</b><small>change by chatting</small></span></a>
+  <a href="ui_kits/app-ai/nutrition-coach.html"><span><b>Nutrition coach</b></span></a>
+</div>
+
+<h2>5 · بالعربي</h2>
+<div class="flow ar">
+  <a href="ui_kits/app-green/onboarding-ar.html"><span><b>البداية</b></span></a>
+  <a href="ui_kits/app-green/auth-login-ar.html"><span><b>تسجيل الدخول</b></span></a>
+  <a href="ui_kits/app-green/location-address-ar.html"><span><b>موقع التوصيل</b></span></a>
+  <a href="ui_kits/app-green/home-plans-ar.html"><span><b>الرئيسية</b></span></a>
+  <a href="ui_kits/app-green/plan-details-ar.html"><span><b>تفاصيل الباقة</b></span></a>
+  <a href="ui_kits/app-green/calorie-calculator-ar.html"><span><b>حاسبة السعرات</b></span></a>
+  <a href="ui_kits/app-green/meal-selection-calendar-ar.html"><span><b>اختيار الوجبات</b></span></a>
+  <a href="ui_kits/app-green/meal-details-ar.html"><span><b>تفاصيل الوجبة</b></span></a>
+  <a href="ui_kits/app-green/cart-checkout-ar.html"><span><b>السلة والدفع</b></span></a>
+  <a href="ui_kits/app-green/subscription-dashboard-ar.html"><span><b>اشتراكي</b></span></a>
+  <a href="ui_kits/app-green/subscription-manage-ar.html"><span><b>إدارة الاشتراك</b></span></a>
+  <a href="ui_kits/app-green/account-wallet-ar.html"><span><b>حسابي والمحفظة</b></span></a>
+  <a href="ui_kits/app-green/rating-flow-ar.html"><span><b>تقييم الوجبة</b></span></a>
+  <a href="ui_kits/app-green/b2b-recurring-ar.html"><span><b>وجبات الشركة</b></span></a>
+  <a href="ui_kits/app-ai/daily-brief-ar.html"><span><b>ميلز — الملخص اليومي</b><small>مفهوم الذكاء الاصطناعي</small></span></a>
+</div>
+
+<div class="fb">
+  <b>Your feedback</b>
+  <p>Tell us: what confused you, what you liked, and whether you'd trust Mealz to pick your meals. Screenshots welcome.</p>
+  <a href="mailto:asm2345@gmail.com?subject=Dailymealz%20prototype%20feedback">Send feedback</a>
+</div>
+
+<p class="hint">Static prototype for research purposes. Some buttons are visual only.</p>
+</div>
+</body>
+</html>

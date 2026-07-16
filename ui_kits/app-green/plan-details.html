@@ -1,0 +1,80 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Plan Details — Green" subtitle="Duration picker, included list, sample week, sticky start CTA — under the brand green" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Balanced plan</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column;position:relative}
+.scroll{flex:1;overflow-y:auto;padding-bottom:130px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="Plan Details (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,MealCard}=window.DailymealzAppRedesignBrief_310f67;
+const DUR=[{meals:12,per:42,weeks:'2½ weeks'},{meals:20,per:38,weeks:'4 weeks',pick:true},{meals:24,per:36,weeks:'5 weeks'}];
+const SAMPLE=[
+{name:'Saffron Grilled Chicken + Rice',kitchen:'Wafra Kitchen',kcal:612,protein:38,carbs:52,fat:18,recommended:true},
+{name:'Grilled Salmon & Quinoa',kitchen:'Nabta',kcal:528,protein:34,carbs:41,fat:22,premiumPrice:7},
+{name:'Chicken Musakhan Roll',kitchen:'Zad House',kcal:486,protein:31,carbs:44,fat:19}];
+function Check(){return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--dm-olive-700)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" style={{flex:'none'}}><path d="M4.5 12.5 10 18 19.5 6.5"/></svg>;}
+function App(){
+  const [dur,setDur]=React.useState(1);
+  const d=DUR[dur];
+  return <div className="app">
+    <div className="scroll">
+      <div className="dm-photo" style={{height:250,borderRadius:0,position:'relative'}}>
+        <span className="dm-photo-note">photo · balanced tray, overhead on sufra cloth</span>
+        <a href="./home-plans.html" aria-label="Back" style={{position:'absolute',top:16,insetInlineStart:16,zIndex:2,width:44,height:44,borderRadius:'50%',background:'var(--dm-surface)',boxShadow:'var(--sh-2)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)'}}>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      </div>
+      <div style={{padding:'16px 20px 0'}}>
+        <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
+          {['Multi-menu','Friday off','Charity option','Premium meals'].map(t=><span key={t} style={{background:'var(--dm-sand)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>{t}</span>)}
+        </div>
+        <h1 style={{margin:'10px 0 0',font:'700 var(--fs-d1)/var(--lh-d1) var(--font-display)'}}>Balanced</h1>
+        <p style={{margin:'6px 0 0',font:'400 var(--fs-body)/var(--lh-body) var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>A different menu every day from 26 kitchens — mains built around 550–700 kcal, swappable until 9 PM the night before.</p>
+        <span className="micro" style={{display:'block',margin:'20px 0 8px'}}>How many lunches?</span>
+        <div style={{display:'flex',gap:8}}>
+          {DUR.map((o,i)=><button key={o.meals} onClick={()=>setDur(i)} style={{flex:1,cursor:'pointer',appearance:'none',textAlign:'center',background:'var(--dm-surface)',border:dur===i?'2px solid var(--dm-saffron-500)':'1px solid var(--dm-line)',boxShadow:dur===i?'var(--sh-2)':'var(--sh-1)',borderRadius:'var(--r-card)',padding:'12px 4px 10px',position:'relative'}}>
+            {o.pick&&<span style={{position:'absolute',top:-9,insetInlineStart:'50%',transform:'translateX(-50%)',background:'var(--dm-green-100)',color:'var(--dm-green-700)',borderRadius:'var(--r-pill)',padding:'2px 9px',font:'700 9.5px var(--font-ui)',whiteSpace:'nowrap'}}>MOST PICKED</span>}
+            <b style={{display:'block',font:'700 24px/26px var(--font-display)'}}>{o.meals}</b>
+            <span style={{font:'500 10.5px var(--font-ui)',color:'var(--dm-ink-2)'}}>lunches · {o.weeks}</span>
+            <span style={{display:'block',font:'700 12.5px var(--font-ui)',color:'var(--dm-saffron-700)',marginTop:3}}>{o.per} SAR/meal</span>
+          </button>)}
+        </div>
+        <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:'14px 16px',marginTop:16,display:'flex',flexDirection:'column',gap:9}}>
+          {['Swap any meal until 9:00 PM the night before','Pause, skip days, or change address anytime','Delivery included · 12:00–1:00 PM window','Unused meals roll into a renewal'].map(l=><span key={l} style={{display:'flex',gap:9,alignItems:'center',font:'400 13.5px/18px var(--font-ui)',color:'var(--dm-ink)'}}><Check/>{l}</span>)}
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',margin:'22px 0 10px'}}>
+          <span className="micro">This week at Balanced</span>
+          <a href="./meal-selection-calendar.html" style={{font:'600 12px var(--font-ui)'}}>Full menu</a>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          {SAMPLE.map((m,i)=><MealCard key={m.name} variant="row" {...m} style={{animation:`dm-serve var(--dur-serve) var(--ease-serve) ${i*40}ms both`}}/>)}
+        </div>
+        <div style={{margin:'18px 0 8px',background:'var(--dm-sand)',borderRadius:'var(--r-ctl)',padding:'11px 14px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span style={{font:'500 12.5px var(--font-ui)',color:'var(--dm-ink-2)'}}>Split it: 4 × {Math.round(d.meals*d.per/4)} SAR with Tamara — no fees</span>
+          <span style={{font:'700 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>tamara</span>
+        </div>
+        <span style={{display:'block',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)',marginBottom:10}}>Prices include VAT. Next: pick your start date and meals.</span>
+      </div>
+    </div>
+    <div style={{position:'absolute',insetInline:0,bottom:0,padding:'12px 20px 26px',background:'rgba(247,246,238,.9)',backdropFilter:'blur(14px)',borderTop:'1px solid var(--dm-line)'}}>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{flex:'none'}}>
+          <b style={{font:'700 24px/26px var(--font-display)'}}>{d.meals*d.per}</b><span style={{font:'600 12px var(--font-ui)',color:'var(--dm-ink-2)'}}> SAR</span>
+          <span style={{display:'block',font:'400 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{d.meals} lunches · {d.per} SAR each</span>
+        </div>
+        <a href="./meal-selection-calendar.html" style={{flex:1,display:'block'}}><Button block size="lg" style={{width:'100%'}}>Start subscription</Button></a>
+      </div>
+      <span style={{display:'block',textAlign:'center',marginTop:8,font:'400 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>Browsing as a guest — you’ll sign in at checkout.</span>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

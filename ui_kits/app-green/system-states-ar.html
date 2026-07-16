@@ -1,0 +1,104 @@
+<!-- @dsCard group="App Screens (Green)" viewport="1220x1080" name="System States — Arabic (Green)" subtitle="البوابات والحالات بالعربية: تحديث إجباري، انقطاع الاتصال، الإشعارات، فارغ، موقوف، منتهٍ" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — حالات النظام</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+body{padding:36px 40px 44px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 24px;max-width:1140px;margin:18px auto 0}
+.frame{width:100%;height:430px;background:var(--dm-paper);border:1px solid var(--dm-line);border-radius:26px;box-shadow:var(--sh-2);overflow:hidden;position:relative}
+.cap{margin-top:10px;font:500 10px var(--font-mono);color:var(--dm-ink-3);letter-spacing:.04em;text-align:center;direction:ltr}
+.micro{font:600 11.5px var(--font-ui);color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="System States (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,MealsRing,StatusBadge}=window.DailymealzAppRedesignBrief_310f67;
+function Sun({dot='var(--dm-green-500)',size=104}){return <div className="dm-dots" style={{width:size,height:size,borderRadius:'50%',background:'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center'}}><i style={{width:size*.34,height:size*.34,borderRadius:'50%',background:dot}}/></div>;}
+function Gate({children}){return <div style={{height:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:'0 34px',gap:8}}>{children}</div>;}
+function H({children}){return <b style={{font:'700 22px/30px var(--font-display)',textWrap:'pretty'}}>{children}</b>;}
+function P({children}){return <span style={{font:'400 13px/20px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>{children}</span>;}
+function App(){return <div>
+  <div style={{maxWidth:1140,margin:'0 auto'}}>
+    <b style={{font:'700 26px var(--font-display)'}}>حالات النظام وبواباته</b>
+    <span style={{display:'block',font:'400 13.5px/20px var(--font-ui)',color:'var(--dm-ink-2)',marginTop:4}}>لغة بصرية واحدة — دائرة الشمس + سطر واحد يجيب + إجراء واحد — ترثها كل عائلات الشاشات. البوابات الحاجبة بلا شريط تبويب؛ الحالات القابلة للتعافي تحفظ عمل المستخدم دائماً.</span>
+  </div>
+  <div className="board">
+    <div><div className="frame"><Gate>
+      <Sun/><div style={{height:6}}/>
+      <H>وقت نسخة أحدث</H>
+      <P>هذه النسخة ما عادت تستقبل الطلبات. حدّث مرة وترجع فوراً — اشتراكك محفوظ كما هو.</P>
+      <div style={{height:10}}/><Button size="lg" style={{minWidth:200}}>حدّث من المتجر</Button>
+      <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}} dir="ltr">v2.4 → v3.1 · دقيقة تقريباً</span>
+    </Gate></div><div className="cap">force update · blocking, no bypass, no tab bar</div></div>
+    <div><div className="frame"><Gate>
+      <Sun dot="var(--dm-sand-2)"/><div style={{height:6}}/>
+      <H>لا يوجد اتصال</H>
+      <P>حفظنا اختياراتك على هذا الجهاز. أول ما يرجع الاتصال نزامنها — لا شيء يضيع.</P>
+      <div style={{height:10}}/><Button variant="secondary" size="lg" style={{minWidth:160}}>حاول مرة أخرى</Button>
+      <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>نعرض آخر وجبات متزامنة</span>
+    </Gate></div><div className="cap">offline · retry keeps local state</div></div>
+    <div><div className="frame">
+      <div aria-hidden style={{position:'absolute',inset:0,padding:20}}>
+        <i style={{display:'block',height:98,borderRadius:20,background:'var(--dm-sand)'}}/>
+        <div style={{display:'flex',gap:8,marginTop:12}}>{[0,1,2,3].map(i=><i key={i} style={{width:54,height:66,borderRadius:16,background:'var(--dm-sand)'}}/>)}</div>
+        <div style={{position:'absolute',inset:0,background:'rgba(31,38,30,.42)'}}/>
+      </div>
+      <div style={{position:'absolute',insetInline:0,bottom:0,background:'var(--dm-paper)',borderRadius:'26px 26px 0 0',boxShadow:'var(--sh-3)',padding:'12px 22px 20px'}}>
+        <div style={{width:36,height:4,borderRadius:99,background:'var(--dm-line-strong)',margin:'0 auto 12px'}}/>
+        <b style={{font:'700 19px/26px var(--font-display)'}}>لا تفوّت وقت التبديل</b>
+        <span style={{display:'block',font:'400 12.5px/18px var(--font-ui)',color:'var(--dm-ink-2)',margin:'4px 0 12px'}}>تنبيه قبل ما تُقفل وجبة الغد، وإشعار لما يقترب سائقك. هذا كل شيء — بلا إزعاج تسويقي.</span>
+        <Button block>فعّل الإشعارات</Button>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:12,paddingTop:11,borderTop:'1px dashed var(--dm-line)'}}>
+          <span style={{font:'500 12.5px var(--font-ui)',color:'var(--dm-ink-2)'}}>وعلى واتساب أيضاً</span>
+          <i style={{width:44,height:26,borderRadius:99,background:'var(--dm-sand-2)',position:'relative'}}><i style={{position:'absolute',top:3,insetInlineStart:3,width:20,height:20,borderRadius:'50%',background:'var(--dm-surface)',boxShadow:'var(--sh-1)'}}/></i>
+        </div>
+        <div style={{textAlign:'center',marginTop:10}}><span style={{font:'600 12.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>لاحقاً</span></div>
+      </div>
+    </div><div className="cap">notification + whatsapp opt-in · contextual, dismissible</div></div>
+    <div><div className="frame">
+      <div style={{padding:'22px 22px 0'}}><b style={{font:'700 22px var(--font-display)'}}>وجباتي</b></div>
+      <Gate>
+        <div style={{width:112,height:112,borderRadius:'50%',border:'2.5px dashed var(--dm-line-strong)',display:'flex',alignItems:'center',justifyContent:'center'}}><i style={{width:36,height:36,borderRadius:'50%',background:'var(--dm-sand)'}}/></div>
+        <div style={{height:4}}/>
+        <H>ما على السفرة خطة بعد</H>
+        <P>اختر خطة مرة واحدة — ويصير هذا التبويب عادتك اليومية: تابع اليوم، وبدّل الغد.</P>
+        <div style={{height:8}}/><Button size="lg" style={{minWidth:180}}>تصفح الخطط</Button>
+      </Gate>
+    </div><div className="cap">empty subscriptions tab · conversion moment</div></div>
+    <div><div className="frame">
+      <div style={{padding:'20px 22px'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><b style={{font:'700 22px var(--font-display)'}}>وجباتي</b><StatusBadge status="paused" locale="ar" size="sm"/></div>
+        <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:20,boxShadow:'var(--sh-1)',padding:16,marginTop:14,display:'flex',gap:14,alignItems:'center'}}>
+          <div style={{filter:'grayscale(1) opacity(.55)'}}><MealsRing remaining={9} total={20} size={76} locale="ar"/></div>
+          <div style={{flex:1}}>
+            <b style={{font:'600 15px/21px var(--font-ui)'}}>موقوفة حتى الأحد ١ فبراير</b>
+            <span style={{display:'block',font:'400 12px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>٩ وجبات بانتظارك. لا توصيل ولا رسوم أثناء الإيقاف.</span>
+          </div>
+        </div>
+        <div style={{marginTop:12}}><Button block size="lg">استأنف التوصيل</Button></div>
+        <div style={{textAlign:'center',marginTop:10}}><span style={{font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>غيّر تاريخ العودة</span></div>
+        <div style={{marginTop:16,background:'var(--dm-sand)',borderRadius:14,padding:'10px 14px',font:'500 11.5px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>قائمة الغد تفتح ٦:٠٠ م كالمعتاد — استأنف الليلة وتغدّى غداً.</div>
+      </div>
+    </div><div className="cap">paused · resume-first, ring desaturates</div></div>
+    <div><div className="frame">
+      <div style={{padding:'20px 22px'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><b style={{font:'700 22px var(--font-display)'}}>وجباتي</b><span style={{background:'var(--dm-sand)',color:'var(--dm-ink-2)',borderRadius:99,padding:'4px 12px',font:'600 11.5px var(--font-ui)'}}>انتهت الخميس ١٥ يناير</span></div>
+        <div className="dm-dots" style={{background:'var(--dm-green-100)',borderRadius:20,padding:18,marginTop:14}}>
+          <b style={{font:'700 19px/26px var(--font-display)',color:'var(--dm-green-700)'}}>أهلاً بعودتك إلى السفرة</b>
+          <span style={{display:'block',font:'400 12.5px/18px var(--font-ui)',color:'var(--dm-ink-2)',margin:'4px 0 12px'}}>أنهيت ٢٠ وجبة من خطة التوازن. جدّد وتحتفظ بسلسلة تقييماتك ومحفظتك وتفضيلاتك.</span>
+          <Button size="lg" block>جدّد — ٢٠ غداء · ٧٦٠ ر.س</Button>
+        </div>
+        <div style={{display:'flex',justifyContent:'space-between',marginTop:14,padding:'0 4px'}}>
+          {[['٢٠','وجبة أكلتها'],['٦١٢','متوسط السعرات'],['٤٫٧','متوسط تقييمك ★']].map(([v,l])=><div key={l} style={{textAlign:'center'}}>
+            <b style={{font:'700 21px var(--font-display)'}}>{v}</b><span style={{display:'block',font:'500 10.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>{l}</span></div>)}
+        </div>
+        <div style={{textAlign:'center',marginTop:14}}><span style={{font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>تصفح خططاً أخرى</span></div>
+      </div>
+    </div><div className="cap">expired · renew-first, recap stats persuade</div></div>
+  </div>
+</div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

@@ -1,0 +1,83 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="B2B — Configuration Setup" subtitle="Guided first-run for sponsored employees: benefit moment, ordering type, office branch" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Work setup</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+.opt{appearance:none;cursor:pointer;text-align:start;display:flex;gap:12px;align-items:flex-start;background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:14px 15px;width:100%}
+.opt.on{border:2px solid var(--dm-green-500);box-shadow:var(--sh-2)}
+.radio{width:12px;height:12px;border-radius:50%;flex:none;margin-top:3px;border:2px solid var(--dm-line-strong)}
+.on .radio{border:4px solid var(--dm-green-500)}
+</style></head>
+<body data-screen-label="B2B Configuration Setup (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const BRANCHES=[['Olaya HQ','Tawuniya Tower, King Fahd Rd · floor 11',true],['Granada Business Park','Building B4, Eastern Ring Rd',false],['DQ Branch','Diplomatic Quarter, Gate 3',false]];
+function OrgMark({size=54}){return <div style={{width:size,height:size,borderRadius:18,background:'var(--dm-sky-100)',display:'flex',alignItems:'center',justifyContent:'center',font:`800 ${size*.42}px var(--font-display)`,color:'var(--dm-sky-700)',flex:'none'}}>T</div>;}
+function App(){
+  const [step,setStep]=React.useState(0);
+  const [type,setType]=React.useState('recurring');
+  const [branch,setBranch]=React.useState(0);
+  const next=()=>setStep(step+1);
+  return <div className="app">
+    <div style={{padding:'18px 20px 0',display:'flex',alignItems:'center',gap:10}}>
+      <a href="./onboarding.html" aria-label="Back" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <div style={{flex:1,display:'flex',gap:5}}>{[0,1,2].map(i=><i key={i} style={{flex:1,height:4,borderRadius:2,background:i<=step?'var(--dm-green-500)':'var(--dm-sand-2)'}}/>)}</div>
+      <span className="micro">{step+1} / 3</span>
+    </div>
+    {step===0&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px'}} data-screen-label="Benefit moment">
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',textAlign:'center'}}>
+        <div style={{position:'relative',marginBottom:18}}>
+          <div className="dm-photo" style={{width:150,height:150,borderRadius:'50%',border:'6px solid var(--dm-surface)',boxShadow:'var(--sh-2)'}}><span className="dm-photo-note">photo · office lunch</span></div>
+          <div style={{position:'absolute',bottom:-6,insetInlineEnd:-6,boxShadow:'var(--sh-2)',borderRadius:18}}><OrgMark/></div>
+        </div>
+        <span className="micro" style={{color:'var(--dm-sky-700)'}}>A Tawuniya benefit</span>
+        <h1 style={{margin:'6px 0 0',font:'700 var(--fs-d1)/var(--lh-d1) var(--font-display)',textWrap:'pretty'}}>Lunch is on Tawuniya</h1>
+        <p style={{margin:'8px 0 0',font:'400 var(--fs-body)/var(--lh-body) var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>Your company sponsors weekday lunches at the office. Two minutes of setup and your tray is on the schedule.</p>
+        <div style={{display:'flex',gap:6,marginTop:14,flexWrap:'wrap',justifyContent:'center'}}>
+          {['Sun–Thu lunches','Recurring or day-by-day','3 office branches'].map(t=><span key={t} style={{background:'var(--dm-sand)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>{t}</span>)}
+        </div>
+      </div>
+      <div style={{padding:'0 0 28px'}}><Button block size="lg" onClick={next}>Set up my lunches</Button></div>
+    </div>}
+    {step===1&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px'}} data-screen-label="Ordering type">
+      <h1 style={{margin:'18px 0 4px',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>How do you want to order?</h1>
+      <span style={{font:'400 13px/18px var(--font-ui)',color:'var(--dm-ink-2)'}}>Tawuniya allows both — you can switch later.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:16}}>
+        <button className={'opt'+(type==='recurring'?' on':'')} onClick={()=>setType('recurring')}>
+          <i className="radio"/><span><b style={{font:'600 15px/19px var(--font-display)',display:'block'}}>A standing weekly schedule</b>
+          <span style={{font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>Same rhythm every week — pick days once, swap meals when you like. Best if you're at the office most days.</span></span>
+        </button>
+        <button className={'opt'+(type==='open'?' on':'')} onClick={()=>setType('open')}>
+          <i className="radio"/><span><b style={{font:'600 15px/19px var(--font-display)',display:'block'}}>Day by day</b>
+          <span style={{font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>Order only the days you come in, against your company allowance. Nothing standing.</span></span>
+        </button>
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 28px'}}><Button block size="lg" onClick={next}>Continue</Button></div>
+    </div>}
+    {step===2&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px'}} data-screen-label="Office branch">
+      <h1 style={{margin:'18px 0 4px',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>Which office are you at?</h1>
+      <span style={{font:'400 13px/18px var(--font-ui)',color:'var(--dm-ink-2)'}}>Addresses are curated by Tawuniya — no map pin needed.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:16}}>
+        {BRANCHES.map(([n,l],i)=><button key={n} className={'opt'+(branch===i?' on':'')} onClick={()=>setBranch(i)}>
+          <i className="radio"/><span><b style={{font:'600 15px/19px var(--font-display)',display:'block'}}>{n}</b>
+          <span style={{font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>{l}</span></span>
+        </button>)}
+      </div>
+      <span style={{font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)',marginTop:12}}>You can change branch anytime — it applies to unlocked orders only.</span>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 28px'}}>
+        <a href={type==='recurring'?'./b2b-recurring.html':'./b2b-open.html'} style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Finish — {type==='recurring'?'build my week':'start ordering'}</Button></a>
+      </div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

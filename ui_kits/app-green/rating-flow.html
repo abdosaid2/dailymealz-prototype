@@ -1,0 +1,82 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Rating Flow — Green" subtitle="Dual stars + aspect chips; points reward confirms in pine" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Rate your meal</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden;background:var(--dm-paper)}
+#root,.app{height:100%;position:relative}
+@keyframes sheetUp{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
+@keyframes popin{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.note{width:100%;min-height:74px;border:1.5px solid var(--dm-line-strong);border-radius:var(--r-ctl);background:var(--dm-surface);padding:10px 13px;font:400 14px/20px var(--font-ui);color:var(--dm-ink);resize:none}
+.note:focus{border-color:var(--dm-saffron-500);box-shadow:none;outline:none}
+</style></head>
+<body data-screen-label="Rating Flow (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip}=window.DailymealzAppRedesignBrief_310f67;
+const GOOD=['Tasty','Right portion','Arrived hot','Fresh'];
+const BAD=['Too salty','Small portion','Arrived cold','Late'];
+function Backdrop(){return <div aria-hidden style={{position:'absolute',inset:0,overflow:'hidden',padding:'18px 20px'}}>
+  <b style={{font:'600 21px var(--font-display)'}}>Salam, Faisal</b>
+  <div style={{height:190,borderRadius:'var(--r-card)',background:'var(--dm-sand)',marginTop:14}}/>
+  <div style={{height:120,borderRadius:'var(--r-card)',background:'var(--dm-sand)',marginTop:12}}/>
+  <div style={{position:'absolute',inset:0,background:'rgba(38,31,21,.42)'}}/>
+</div>;}
+function Stars({val,set,size=34}){
+  return <div style={{display:'flex',gap:4}}>{[1,2,3,4,5].map(i=><button key={i} onClick={()=>set(i)} aria-label={i+' stars'} style={{appearance:'none',border:0,background:'none',cursor:'pointer',fontSize:size,lineHeight:1,padding:'2px 2px',color:i<=val?'var(--dm-saffron-500)':'var(--dm-sand-2)',transition:'transform .12s',transform:i===val?'scale(1.12)':'none'}}>★</button>)}</div>;}
+function App(){
+  const [meal,setMeal]=React.useState(0);
+  const [svc,setSvc]=React.useState(0);
+  const [chips,setChips]=React.useState([]);
+  const [done,setDone]=React.useState(false);
+  const pool=meal>0&&meal<=3?BAD:GOOD;
+  const toggle=c=>setChips(chips.includes(c)?chips.filter(x=>x!==c):[...chips,c]);
+  return <div className="app">
+    <Backdrop/>
+    {!done?<div style={{position:'absolute',insetInline:0,bottom:0,background:'var(--dm-paper)',borderRadius:'var(--r-sheet) var(--r-sheet) 0 0',boxShadow:'var(--sh-3)',padding:'10px 24px 28px',animation:'sheetUp var(--dur-sheet) var(--ease-serve) both'}} data-screen-label="Rate meal + delivery">
+      <div style={{width:40,height:4.5,borderRadius:'var(--r-pill)',background:'var(--dm-line-strong)',margin:'4px auto 14px'}}/>
+      <div style={{display:'flex',gap:12,alignItems:'center'}}>
+        <div className="dm-photo" style={{width:58,height:58,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+        <div style={{flex:1,minWidth:0}}>
+          <b style={{font:'700 18px/22px var(--font-display)'}}>Chicken Musakhan Roll</b>
+          <span style={{display:'block',font:'400 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>Zad House · delivered yesterday 12:22</span>
+        </div>
+        <a href="./subscription-dashboard.html" aria-label="Close" style={{width:38,height:38,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></a>
+      </div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:18}}>
+        <span style={{font:'600 14.5px var(--font-ui)'}}>The meal</span><Stars val={meal} set={v=>{setMeal(v);setChips([]);}}/>
+      </div>
+      {meal>0&&<div style={{display:'flex',gap:7,flexWrap:'wrap',marginTop:10}}>
+        {pool.map(c=><Chip key={c} selected={chips.includes(c)} onClick={()=>toggle(c)}>{c}</Chip>)}
+      </div>}
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:14,paddingTop:14,borderTop:'1px dashed var(--dm-line)'}}>
+        <span style={{font:'600 14.5px var(--font-ui)'}}>The delivery</span><Stars val={svc} set={setSvc}/>
+      </div>
+      <textarea className="note" style={{marginTop:14}} placeholder={meal>0&&meal<=3?'What went wrong? The kitchen reads these.':'Anything the kitchen should hear? (optional)'}></textarea>
+      <div style={{display:'flex',alignItems:'center',gap:8,margin:'12px 0'}}>
+        <i style={{width:8,height:8,borderRadius:'50%',background:'var(--dm-saffron-500)',flex:'none'}}/>
+        <span style={{font:'500 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>Ratings earn <b style={{color:'var(--dm-ink)'}}>+3 points</b> — 4 more this week keeps your streak.</span>
+      </div>
+      <Button block size="lg" disabled={!meal||!svc} onClick={()=>setDone(true)}>{!meal||!svc?'Rate both to send':'Send rating'}</Button>
+    </div>
+    :<div style={{position:'absolute',insetInline:0,bottom:0,background:'var(--dm-paper)',borderRadius:'var(--r-sheet) var(--r-sheet) 0 0',boxShadow:'var(--sh-3)',padding:'10px 24px 30px',animation:'sheetUp var(--dur-sheet) var(--ease-serve) both'}} data-screen-label="Rating sent — points">
+      <div style={{width:40,height:4.5,borderRadius:'var(--r-pill)',background:'var(--dm-line-strong)',margin:'4px auto 16px'}}/>
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center'}}>
+        <div style={{width:84,height:84,borderRadius:'50%',background:'var(--dm-pine-100)',display:'flex',alignItems:'center',justifyContent:'center',animation:'popin .45s var(--ease-serve) both',boxShadow:'var(--sh-2)'}}>
+          <b style={{font:'800 22px var(--font-display)',color:'var(--dm-pine-700)'}}>+3</b>
+        </div>
+        <b style={{font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)',marginTop:14}}>Shukran, Faisal</b>
+        <span style={{font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)',marginTop:4}}>{meal<=3?'Zad House sees this today — refunds land in your wallet when a meal misses the mark.':'Passed to Zad House — high marks bump this dish up Wednesday menus.'}</span>
+        <span style={{font:'500 12px var(--font-ui)',color:'var(--dm-ink-3)',marginTop:10}}>Points balance: 423 · 77 to a free meal</span>
+        <div style={{display:'flex',gap:9,marginTop:16,width:'100%'}}>
+          <a href="./subscription-dashboard.html" style={{flex:1,display:'block'}}><Button block size="lg" style={{width:'100%'}}>Back to my meals</Button></a>
+        </div>
+      </div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

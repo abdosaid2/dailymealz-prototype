@@ -1,0 +1,36 @@
+:root{
+/* BRAND GREEN evolution — same token API as tokens/colors.css so the shared
+   component bundle restyles by swapping the stylesheet (see styles-green.css).
+   Primary is the 8-year brand green #12B566. */
+/* neutrals — bone re-tuned toward sage so green sits naturally */
+--dm-paper:#F7F6EE;--dm-surface:#FFFFFF;--dm-sand:#EFEDDF;--dm-sand-2:#E1DFCB;--dm-line:#E4E1D0;--dm-line-strong:#CFCDB4;
+--dm-ink:#1F261E;--dm-ink-2:#5C685A;--dm-ink-3:#8E9C89;
+/* brand green ramp */
+--dm-green-50:#E9F9F0;--dm-green-100:#D2F2E0;--dm-green-300:#7EDCAB;--dm-green-500:#12B566;--dm-green-600:#0E9654;--dm-green-700:#0A6E3F;
+/* legacy aliases — components/screens written against the saffron names pick up green */
+--dm-saffron-50:var(--dm-green-50);--dm-saffron-100:var(--dm-green-100);--dm-saffron-300:var(--dm-green-300);--dm-saffron-500:var(--dm-green-500);--dm-saffron-600:var(--dm-green-600);--dm-saffron-700:var(--dm-green-700);
+/* support hues — matched chroma, cleared of the delivery-app orange/yellow/red shelf */
+--dm-pine-100:#D9EFE2;--dm-pine-500:#1E7D4D;--dm-pine-700:#0A5A34;      /* settled success */
+--dm-sky-100:#DCEBF2;--dm-sky-500:#3A7FA0;--dm-sky-700:#2A586F;         /* info/accepted/fat */
+--dm-plum-100:#F4E0E9;--dm-plum-500:#96486B;--dm-plum-700:#6E304C;      /* protein */
+--dm-amber-100:#F5ECCF;--dm-amber-500:#B8891F;--dm-amber-700:#83610E;   /* pending/carbs */
+--dm-terra-100:#F8E1D6;--dm-terra-500:#C24A33;--dm-terra-700:#93351F;   /* failed/danger */
+/* legacy support aliases */
+--dm-olive-100:var(--dm-pine-100);--dm-olive-500:var(--dm-pine-500);--dm-olive-700:var(--dm-pine-700);
+--dm-teal-100:var(--dm-sky-100);--dm-teal-500:var(--dm-sky-500);--dm-teal-700:var(--dm-sky-700);
+--dm-beet-100:var(--dm-plum-100);--dm-beet-500:var(--dm-plum-500);--dm-beet-700:var(--dm-plum-700);
+--dm-wheat-100:var(--dm-amber-100);--dm-wheat-500:var(--dm-amber-500);--dm-wheat-700:var(--dm-amber-700);
+/* semantic */
+--dm-primary:var(--dm-green-500);--dm-primary-ink:var(--dm-ink);--dm-primary-press:var(--dm-green-600);
+--dm-success:var(--dm-pine-500);--dm-danger:var(--dm-terra-500);
+/* order lifecycle — BRIGHT brand green belongs to motion (on-the-way) and actions only;
+   settled success is PINE tint + dark text + check, never a bright fill (green-CTA vs green-success rule) */
+--st-pending-bg:var(--dm-amber-100);--st-pending-fg:var(--dm-amber-700);
+--st-accepted-bg:var(--dm-sky-100);--st-accepted-fg:var(--dm-sky-700);
+--st-assigned-bg:var(--dm-green-100);--st-assigned-fg:var(--dm-green-700);
+--st-delivered-bg:var(--dm-pine-100);--st-delivered-fg:var(--dm-pine-700);
+--st-paused-bg:var(--dm-sand);--st-paused-fg:var(--dm-ink-2);
+--st-failed-bg:var(--dm-terra-100);--st-failed-fg:var(--dm-terra-700);
+/* macros — constant everywhere; distinct from the status ramp by context (dot + gm) */
+--macro-kcal:var(--dm-ink);--macro-protein:var(--dm-plum-500);--macro-carbs:var(--dm-amber-500);--macro-fat:var(--dm-sky-500);
+}

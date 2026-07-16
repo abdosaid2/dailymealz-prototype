@@ -1,0 +1,165 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Location & Addresses — Green" subtitle="Permission → map pin → form → list, unserved vote — under the brand green" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Delivery address</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.map{position:absolute;inset:0;background:var(--dm-sand);transition:background-position .6s var(--ease-serve)}
+.map,.map i{background-image:
+ linear-gradient(90deg,transparent 0 46px,#FFFDF6 46px 52px),
+ linear-gradient(0deg,transparent 0 64px,#FFFDF6 64px 70px);
+ background-size:92px 92px,92px 130px}
+.field{width:100%;height:52px;border:1.5px solid var(--dm-line-strong);border-radius:var(--r-ctl);background:var(--dm-surface);padding:0 14px;font:500 15px var(--font-ui);color:var(--dm-ink)}
+.field:focus{border-color:var(--dm-saffron-500);box-shadow:none;outline:none}
+@keyframes sheetUp{from{transform:translateY(50px);opacity:0}to{transform:none;opacity:1}}
+@keyframes shimmer{0%{opacity:.45}50%{opacity:1}100%{opacity:.45}}
+</style></head>
+<body data-screen-label="Location & Addresses (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip}=window.DailymealzAppRedesignBrief_310f67;
+const ZONES={olaya:{name:'Al Olaya',line:'King Fahd Rd · Al Olaya, Riyadh 12212',served:true,shift:'0px 0px'},sulay:{name:'As Sulimaniyah',line:'Prince Sultan Rd · As Sulimaniyah, Riyadh 12233',served:true,shift:'-46px -32px'},aziz:{name:'Al Aziziyah',line:'Dirab Rd · Al Aziziyah, Riyadh 14515',served:false,shift:'38px 44px'}};
+function BackBtn({onClick,href}){const inner=<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg>;
+  const st={width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',cursor:'pointer',flex:'none',boxShadow:'var(--sh-1)'};
+  return href?<a href={href} aria-label="Back" style={st}>{inner}</a>:<button onClick={onClick} aria-label="Back" style={st}>{inner}</button>;}
+function Pin(){return <div style={{position:'absolute',left:'50%',top:'46%',transform:'translate(-50%,-100%)',display:'flex',flexDirection:'column',alignItems:'center',pointerEvents:'none',filter:'drop-shadow(0 6px 8px rgba(72,52,16,.3))'}}>
+  <div style={{width:34,height:34,borderRadius:'50%',background:'var(--dm-ink)',display:'flex',alignItems:'center',justifyContent:'center'}}><i style={{width:12,height:12,borderRadius:'50%',background:'var(--dm-saffron-500)'}}/></div>
+  <i style={{width:3.5,height:12,background:'var(--dm-ink)',borderRadius:2}}/>
+  <i style={{width:12,height:4,borderRadius:'50%',background:'rgba(38,31,21,.28)',marginTop:2}}/>
+</div>;}
+function App(){
+  const [step,setStep]=React.useState('perm');
+  const [osAsk,setOsAsk]=React.useState(false);
+  const [denied,setDenied]=React.useState(false);
+  const [zone,setZone]=React.useState('olaya');
+  const [geo,setGeo]=React.useState('done');
+  const [voted,setVoted]=React.useState(false);
+  const [label,setLabel]=React.useState('Office');
+  const [dflt,setDflt]=React.useState(true);
+  const z=ZONES[zone];
+  const jump=k=>{if(k===zone)return;setZone(k);setVoted(false);setGeo('load');setTimeout(()=>setGeo('done'),700);};
+  const micro={font:'600 var(--fs-micro)/var(--lh-micro) var(--font-ui)',letterSpacing:'.06em',textTransform:'uppercase',color:'var(--dm-ink-3)'};
+  if(step==='perm')return <div className="app" data-screen-label="Location permission gate" style={{padding:'0 24px',position:'relative'}}>
+    <div style={{display:'flex',paddingTop:18}}><BackBtn href="./onboarding.html"/></div>
+    <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',textAlign:'center'}}>
+      <div className="dm-dots" style={{width:150,height:150,borderRadius:'50%',background:'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:22}}>
+        <div style={{width:52,height:52,borderRadius:'50%',background:'var(--dm-ink)',display:'flex',alignItems:'center',justifyContent:'center'}}><i style={{width:18,height:18,borderRadius:'50%',background:'var(--dm-saffron-500)'}}/></div>
+      </div>
+      <h1 style={{margin:0,font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)',textWrap:'pretty'}}>Where should lunch land?</h1>
+      <p style={{margin:'8px 0 0',font:'400 var(--fs-body)/var(--lh-body) var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>Plans and menus depend on your delivery zone. We use your location once, only to find it.</p>
+      {denied&&<div style={{marginTop:16,background:'var(--dm-sand)',borderRadius:'var(--r-ctl)',padding:'10px 14px',font:'500 12.5px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>Location is off — no problem. Pick your spot on the map, or enable it later in Settings.</div>}
+    </div>
+    <div style={{padding:'0 0 30px',display:'flex',flexDirection:'column',gap:12}}>
+      {!denied&&<Button block size="lg" onClick={()=>setOsAsk(true)}>Allow location access</Button>}
+      <Button block size="lg" variant={denied?'primary':'ghost'} onClick={()=>setStep('map')}>Select location manually</Button>
+    </div>
+    {osAsk&&<div style={{position:'absolute',inset:0,background:'rgba(38,31,21,.4)',display:'flex',alignItems:'center',justifyContent:'center',padding:32}} data-screen-label="OS permission dialog">
+      <div style={{background:'var(--dm-surface)',borderRadius:18,boxShadow:'var(--sh-3)',width:280,overflow:'hidden',textAlign:'center'}}>
+        <div style={{padding:'20px 18px 14px'}}>
+          <b style={{font:'600 15px/20px var(--font-ui)'}}>Allow “Dailymealz” to use your location?</b>
+          <p style={{margin:'6px 0 0',font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>Used once to find your delivery zone.</p>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',borderTop:'1px solid var(--dm-line)'}}>
+          <button onClick={()=>{setOsAsk(false);setDenied(true);}} style={{appearance:'none',border:0,background:'none',cursor:'pointer',padding:'13px 0',font:'500 14px var(--font-ui)',color:'var(--dm-ink-2)',borderInlineEnd:'1px solid var(--dm-line)'}}>Don’t allow</button>
+          <button onClick={()=>{setOsAsk(false);setStep('map');}} style={{appearance:'none',border:0,background:'none',cursor:'pointer',padding:'13px 0',font:'700 14px var(--font-ui)',color:'var(--dm-saffron-700)'}}>Allow</button>
+        </div>
+      </div>
+    </div>}
+  </div>;
+  if(step==='map')return <div className="app" data-screen-label="Map pin picker" style={{position:'relative',overflow:'hidden'}}>
+    <div className="map" style={{backgroundPosition:z.shift}}>
+      <div style={{position:'absolute',left:30,top:210,width:120,height:88,borderRadius:26,background:'var(--dm-olive-100)',transform:`translate(${z.shift.split(' ')[0]},${z.shift.split(' ')[1]})`,transition:'transform .6s var(--ease-serve)'}}/>
+      <span style={{position:'absolute',left:44,top:246,font:'500 9px var(--font-mono)',color:'var(--dm-olive-700)'}}>salam park</span>
+      <span style={{position:'absolute',right:40,top:170,font:'500 10px var(--font-mono)',color:'var(--dm-ink-3)',letterSpacing:'.06em'}}>{z.name.toUpperCase()}</span>
+    </div>
+    <Pin/>
+    <div style={{position:'absolute',insetInline:0,top:0,padding:'16px 20px 0',display:'flex',gap:10,alignItems:'center'}}>
+      <BackBtn onClick={()=>setStep('perm')}/>
+      <div style={{flex:1,height:48,borderRadius:'var(--r-pill)',background:'var(--dm-surface)',boxShadow:'var(--sh-2)',display:'flex',alignItems:'center',gap:9,padding:'0 16px'}}>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="var(--dm-ink-3)" strokeWidth="2" strokeLinecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3.5 3.5"/></svg>
+        <span style={{font:'500 14px var(--font-ui)',color:'var(--dm-ink-3)'}}>Search district, landmark…</span>
+      </div>
+    </div>
+    <div style={{position:'absolute',insetInlineEnd:20,bottom:236}}>
+      <button onClick={()=>jump('olaya')} aria-label="Use current location" style={{width:48,height:48,borderRadius:'50%',border:0,cursor:'pointer',background:'var(--dm-surface)',boxShadow:'var(--sh-2)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--dm-ink)" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3.5M12 18.5V22M2 12h3.5M18.5 12H22"/></svg>
+      </button>
+    </div>
+    <div style={{position:'absolute',insetInline:0,bottom:150,display:'flex',justifyContent:'center',gap:8}}>
+      {Object.entries(ZONES).map(([k,v])=><Chip key={k} selected={zone===k} onClick={()=>jump(k)}>{v.name}{!v.served?' · ?':''}</Chip>)}
+    </div>
+    <div style={{position:'absolute',insetInline:0,bottom:0,background:'var(--dm-paper)',borderRadius:'var(--r-sheet) var(--r-sheet) 0 0',boxShadow:'var(--sh-3)',padding:'18px 20px 26px',animation:'sheetUp var(--dur-sheet) var(--ease-serve) both'}}>
+      {geo==='load'?<div>
+        <div style={{height:16,width:150,borderRadius:8,background:'var(--dm-sand)',animation:'shimmer 1s infinite'}}/>
+        <div style={{height:12,width:230,borderRadius:6,background:'var(--dm-sand)',marginTop:8,animation:'shimmer 1s .15s infinite'}}/>
+        <div style={{height:52,borderRadius:'var(--r-pill)',background:'var(--dm-sand)',marginTop:16,animation:'shimmer 1s .3s infinite'}}/>
+      </div>
+      :z.served?<div data-screen-label="Served point — confirm">
+        <b style={{font:'700 18px var(--font-display)'}}>{z.name}</b>
+        <span style={{display:'block',font:'400 12.5px/17px var(--font-ui)',color:'var(--dm-ink-2)',margin:'2px 0 14px'}}>{z.line}</span>
+        <Button block size="lg" onClick={()=>setStep('form')}>Deliver here</Button>
+      </div>
+      :<div data-screen-label="Unserved area — vote">
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <b style={{font:'700 18px var(--font-display)'}}>{z.name}</b>
+          <span style={{background:'var(--st-paused-bg)',color:'var(--st-paused-fg)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'600 11px var(--font-ui)'}}>Not there yet</span>
+        </div>
+        {voted?<div style={{marginTop:10,background:'var(--dm-olive-100)',borderRadius:'var(--r-ctl)',padding:'12px 14px',font:'500 13px/18px var(--font-ui)',color:'var(--dm-olive-700)'}}>Thanks — you’re vote 84. We’ll message you the day we reach {z.name}.</div>
+        :<React.Fragment>
+          <span style={{display:'block',font:'400 12.5px/17px var(--font-ui)',color:'var(--dm-ink-2)',margin:'4px 0 14px'}}>We don’t deliver to {z.name} yet — 83 neighbors have asked. Your vote moves it up the list.</span>
+          <Button block size="lg" variant="secondary" onClick={()=>setVoted(true)}>Vote for my area</Button>
+        </React.Fragment>}
+      </div>}
+    </div>
+  </div>;
+  if(step==='form')return <div className="app" data-screen-label="Address form" style={{padding:'0 20px'}}>
+    <div style={{display:'flex',gap:12,alignItems:'center',paddingTop:18}}><BackBtn onClick={()=>setStep('map')}/><h1 style={{margin:0,font:'600 21px var(--font-display)'}}>Address details</h1></div>
+    <div style={{flex:1,overflowY:'auto',paddingTop:16}}>
+      <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:14,display:'flex',gap:12,alignItems:'center'}}>
+        <div className="map" style={{position:'relative',width:64,height:64,borderRadius:'var(--r-photo)',flex:'none',inset:'auto'}}><i style={{position:'absolute',left:'50%',top:'50%',width:14,height:14,borderRadius:'50%',background:'var(--dm-ink)',transform:'translate(-50%,-50%)',border:'3px solid var(--dm-saffron-500)'}}/></div>
+        <div style={{flex:1,minWidth:0}}>
+          <b style={{font:'600 15px var(--font-display)'}}>{z.name}</b>
+          <span style={{display:'block',font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>{z.line}</span>
+        </div>
+        <a href="#move" onClick={e=>{e.preventDefault();setStep('map');}} style={{font:'600 12.5px var(--font-ui)'}}>Move pin</a>
+      </div>
+      <label style={{display:'block',...micro,margin:'18px 0 8px'}}>Save as</label>
+      <div style={{display:'flex',gap:8}}>{['Home','Office','Other'].map(l=><Chip key={l} selected={label===l} onClick={()=>setLabel(l)}>{l}</Chip>)}</div>
+      <label style={{display:'block',...micro,margin:'18px 0 6px'}}>Building / tower</label>
+      <input className="field" defaultValue="Tawuniya Tower" placeholder="Building name or number"/>
+      <label style={{display:'block',...micro,margin:'14px 0 6px'}}>Floor &amp; office</label>
+      <input className="field" defaultValue="Floor 11 · office 04" placeholder="e.g. Floor 3, apt 12"/>
+      <span style={{display:'block',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)',marginTop:6}}>Landmarks help our drivers more than street numbers do.</span>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:18,background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-ctl)',padding:'12px 14px'}}>
+        <span style={{font:'600 14px var(--font-ui)'}}>Set as default address</span>
+        <button role="switch" aria-checked={dflt} onClick={()=>setDflt(!dflt)} style={{appearance:'none',cursor:'pointer',width:50,height:30,borderRadius:'var(--r-pill)',border:0,background:dflt?'var(--dm-saffron-500)':'var(--dm-sand-2)',position:'relative',transition:'background .18s'}}>
+          <i style={{position:'absolute',top:3,insetInlineStart:dflt?23:3,width:24,height:24,borderRadius:'50%',background:'var(--dm-surface)',boxShadow:'var(--sh-1)',transition:'inset-inline-start .18s var(--ease-serve)'}}/>
+        </button>
+      </div>
+    </div>
+    <div style={{padding:'12px 0 26px'}}><Button block size="lg" onClick={()=>setStep('list')}>Save address</Button></div>
+  </div>;
+  return <div className="app" data-screen-label="Saved addresses" style={{padding:'0 20px'}}>
+    <div style={{display:'flex',gap:12,alignItems:'center',paddingTop:18}}><BackBtn href="./home-plans.html"/><h1 style={{margin:0,font:'600 21px var(--font-display)'}}>Your addresses</h1></div>
+    <div style={{flex:1,overflowY:'auto',paddingTop:14}}>
+      <div style={{background:'var(--dm-wheat-100)',borderRadius:'var(--r-ctl)',padding:'10px 14px',font:'500 12px/17px var(--font-ui)',color:'var(--dm-wheat-700)'}}>Address changes apply to unlocked orders only — starting Tue 20 Jan.</div>
+      {[{n:label+' · '+z.name,l:'Tawuniya Tower · floor 11 · '+z.line,d:dflt,c:label[0]},{n:'Home · An Narjis',l:'Villa 23, Anas ibn Malik Rd, Riyadh 13325',d:!dflt,c:'H'}].map(a=>
+      <div key={a.n} style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:14,marginTop:12,display:'flex',gap:12,alignItems:'center'}}>
+        <div style={{width:44,height:44,borderRadius:'50%',background:'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',font:'700 16px var(--font-display)',color:'var(--dm-ink-2)',flex:'none'}}>{a.c}</div>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{display:'flex',alignItems:'center',gap:8}}><b style={{font:'600 14.5px var(--font-display)'}}>{a.n}</b>{a.d&&<span style={{background:'var(--dm-saffron-100)',color:'var(--dm-saffron-700)',borderRadius:'var(--r-pill)',padding:'2px 9px',font:'700 10.5px var(--font-ui)'}}>Default</span>}</div>
+          <span style={{display:'block',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-2)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{a.l}</span>
+        </div>
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="var(--dm-ink-3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg>
+      </div>)}
+      <button onClick={()=>{setZone('olaya');setStep('map');}} style={{width:'100%',marginTop:12,height:56,borderRadius:'var(--r-card)',border:'1.5px dashed var(--dm-line-strong)',background:'none',cursor:'pointer',font:'600 14px var(--font-ui)',color:'var(--dm-ink-2)'}}>+ Add new address</button>
+    </div>
+    <div style={{padding:'12px 0 26px'}}><a href="./home-plans.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Done — browse plans</Button></a></div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

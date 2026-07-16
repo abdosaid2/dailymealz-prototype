@@ -1,0 +1,109 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Calorie Calculator" subtitle="Under-a-minute intake with skip path; the result number is the hero, plan recommendation follows" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Calorie calculator</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+.stp{display:flex;align-items:center;gap:2;background:var(--dm-surface);border:1.5px solid var(--dm-line-strong);border-radius:var(--r-pill);padding:3px}
+.stp button{appearance:none;border:0;background:none;cursor:pointer;width:40px;height:40px;border-radius:var(--r-pill);font:700 19px var(--font-ui);color:var(--dm-ink)}
+.stp b{font:700 17px var(--font-display);min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+@keyframes popin{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+</style></head>
+<body data-screen-label="Calorie Calculator (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip}=window.DailymealzAppRedesignBrief_310f67;
+const ACT=[['Desk day','Mostly sitting, office work'],['Lightly active','On your feet a few hours'],['Active','Training 3–5× a week'],['Very active','Physical job or daily training']];
+function Stepper({v,set,min,max,step=1,unit}){
+  return <div className="stp">
+    <button aria-label="Less" onClick={()=>set(Math.max(min,v-step))} style={{color:v>min?'var(--dm-ink)':'var(--dm-ink-3)'}}>−</button>
+    <b>{v} <span style={{font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>{unit}</span></b>
+    <button aria-label="More" onClick={()=>set(Math.min(max,v+step))}>+</button>
+  </div>;}
+function App(){
+  const [step,setStep]=React.useState(0);
+  const [sex,setSex]=React.useState('m');
+  const [age,setAge]=React.useState(31);
+  const [h,setH]=React.useState(176);
+  const [w,setW]=React.useState(82);
+  const [act,setAct]=React.useState(0);
+  const [goal,setGoal]=React.useState('lose');
+  const bmr=sex==='m'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161;
+  const tdee=bmr*[1.25,1.4,1.55,1.72][act];
+  const target=Math.round((goal==='lose'?tdee-450:goal==='gain'?tdee+300:tdee)/10)*10;
+  const lunch=Math.round(target*.35/10)*10;
+  const row={display:'flex',justifyContent:'space-between',alignItems:'center',padding:'13px 0',borderBottom:'1px dashed var(--dm-line)'};
+  return <div className="app">
+    <div style={{padding:'18px 20px 0',display:'flex',alignItems:'center',gap:10}}>
+      <a href="./home-plans.html" aria-label="Back" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <div style={{flex:1,display:'flex',gap:5}}>{[0,1].map(i=><i key={i} style={{flex:1,height:4,borderRadius:2,background:i<=Math.min(step,1)?'var(--dm-green-500)':'var(--dm-sand-2)'}}/>)}</div>
+      <a href="./home-plans.html" style={{font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>Skip</a>
+    </div>
+    {step===0&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="Intake — about you">
+      <h1 style={{margin:'16px 0 2px',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>About you</h1>
+      <span style={{font:'400 13px/18px var(--font-ui)',color:'var(--dm-ink-2)'}}>Four numbers — nothing is shared with kitchens.</span>
+      <div style={{marginTop:8}}>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>Sex</span>
+          <div style={{display:'flex',gap:8}}><Chip selected={sex==='m'} onClick={()=>setSex('m')}>Male</Chip><Chip selected={sex==='f'} onClick={()=>setSex('f')}>Female</Chip></div></div>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>Age</span><Stepper v={age} set={setAge} min={16} max={80} unit="yrs"/></div>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>Height</span><Stepper v={h} set={setH} min={140} max={210} unit="cm"/></div>
+        <div style={{...row,borderBottom:0}}><span style={{font:'600 14px var(--font-ui)'}}>Weight</span><Stepper v={w} set={setW} min={40} max={160} unit="kg"/></div>
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 28px'}}><Button block size="lg" onClick={()=>setStep(1)}>Continue</Button></div>
+    </div>}
+    {step===1&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="Intake — activity & goal">
+      <h1 style={{margin:'16px 0 2px',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>Your days</h1>
+      <span style={{font:'400 13px/18px var(--font-ui)',color:'var(--dm-ink-2)'}}>Pick the closest match — precision comes later.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:8,marginTop:14}}>
+        {ACT.map(([t,s],i)=><button key={t} onClick={()=>setAct(i)} style={{appearance:'none',cursor:'pointer',textAlign:'start',display:'flex',gap:11,alignItems:'center',background:'var(--dm-surface)',border:act===i?'2px solid var(--dm-green-500)':'1px solid var(--dm-line)',borderRadius:'var(--r-ctl)',padding:'11px 14px'}}>
+          <i style={{width:12,height:12,borderRadius:'50%',flex:'none',border:act===i?'4px solid var(--dm-green-500)':'2px solid var(--dm-line-strong)'}}/>
+          <span><b style={{font:'600 14px var(--font-ui)',display:'block'}}>{t}</b><span style={{font:'400 11.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span></span>
+        </button>)}
+      </div>
+      <span className="micro" style={{margin:'16px 0 8px'}}>Goal</span>
+      <div style={{display:'flex',gap:8}}>
+        {[['lose','Lose'],['maintain','Maintain'],['gain','Gain']].map(([k,l])=><Chip key={k} selected={goal===k} onClick={()=>setGoal(k)}>{l}</Chip>)}
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'16px 0 28px'}}><Button block size="lg" onClick={()=>setStep(2)}>See my number</Button></div>
+    </div>}
+    {step===2&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="Result hero">
+      <div className="dm-dots" style={{display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center',padding:'26px 0 4px'}}>
+        <span className="micro">Your daily target</span>
+        <div style={{display:'flex',alignItems:'baseline',gap:6,animation:'popin .5s var(--ease-serve) both'}}>
+          <b style={{font:'800 74px/78px var(--font-display)',fontVariantNumeric:'tabular-nums'}}>{target.toLocaleString()}</b>
+          <span style={{font:'700 16px var(--font-ui)',color:'var(--dm-ink-2)'}}>kcal</span>
+        </div>
+        <span style={{font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)',maxWidth:290,textWrap:'pretty'}}>A steady pace for your goal — about <b style={{color:'var(--dm-ink)'}}>{lunch} kcal</b> of it belongs to lunch.</span>
+      </div>
+      <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:16,marginTop:18}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span className="micro">Matched plan</span>
+          <span style={{background:'var(--dm-green-100)',color:'var(--dm-green-700)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'700 10.5px var(--font-ui)'}}>Fits your lunch budget</span>
+        </div>
+        <div style={{display:'flex',gap:12,alignItems:'center',marginTop:11}}>
+          <div className="dm-photo" style={{width:54,height:54,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{font:'700 17px/21px var(--font-display)'}}>Light · 20 lunches</b>
+            <span style={{display:'block',font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>Mains built to 450–550 kcal · 42 SAR/meal</span>
+          </div>
+        </div>
+        <div style={{display:'flex',gap:9,marginTop:13}}>
+          <a href="./plan-details.html" style={{flex:1,display:'block'}}><Button block style={{width:'100%'}}>See the Light plan</Button></a>
+          <a href="./nutrition-target.html" style={{display:'block'}}><Button variant="ghost">Save target</Button></a>
+        </div>
+      </div>
+      <span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)',margin:'12px 2px 0',textWrap:'pretty'}}>Estimate from your inputs (Mifflin-St Jeor), not medical advice. Your target echoes on every menu — each meal shows how it fits.</span>
+      <div style={{flex:1}}/>
+      <div style={{padding:'12px 0 28px',textAlign:'center'}}><button onClick={()=>setStep(0)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>Redo the numbers</button></div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

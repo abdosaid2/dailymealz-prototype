@@ -1,0 +1,138 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Meal Details — Green" subtitle="Appetite sheet: photo pager, macro hero, sold-out & locked bars — under the brand green" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Meal details</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden;background:var(--dm-paper)}
+#root,.app{height:100%;position:relative}
+@keyframes sheetUp{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="Meal Details (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,MacroChips}=window.DailymealzAppRedesignBrief_310f67;
+const MEALS=[
+{id:1,name:'Saffron Grilled Chicken + Rice',kitchen:'Wafra Kitchen',rating:'4.6',kcal:612,protein:38,carbs:52,fat:18,recommended:true,tag:'High protein',photos:['photo 1 · plated, 45° natural light','photo 2 · close crop, steam'],
+desc:'Chargrilled chicken thigh marinated overnight in saffron, yogurt and black lime, over vermicelli rice with charred tomato salsa and a herb salad. Comes with the dressing on the side so the leaves stay crisp until noon. Cooked fresh at 9:40 AM the day of delivery.'},
+{id:2,name:'Grilled Salmon & Quinoa',kitchen:'Nabta',rating:'4.8',kcal:528,protein:34,carbs:41,fat:22,premiumPrice:7,tag:'Omega-rich',photos:['photo 1 · fillet on quinoa'],
+desc:'Norwegian salmon fillet grilled skin-down, tri-color quinoa with preserved lemon, shaved fennel and a tahini-dill drizzle. A premium catch, priced with a small top-up.'},
+{id:3,name:'Lamb Kabsa',kitchen:'Wafra Kitchen',rating:'4.7',kcal:702,protein:41,carbs:68,fat:27,soldOut:true,tag:'Comfort',photos:['photo 1 · kabsa pot, overhead'],
+desc:'Slow-cooked lamb shoulder over spiced kabsa rice with toasted almonds, raisins and daqqus on the side. Wednesday’s most-loved dish — it goes early.'}];
+function Backdrop(){/* the calendar the sheet slid over */
+  return <div aria-hidden style={{position:'absolute',inset:0,overflow:'hidden',padding:'18px 20px'}}>
+    <b style={{font:'600 21px var(--font-display)'}}>Pick your meals</b>
+    <div style={{display:'flex',gap:8,marginTop:14}}>{[0,1,2,3,4].map(i=><i key={i} style={{width:52,height:64,borderRadius:18,background:i===3?'var(--dm-sand-2)':'var(--dm-sand)'}}/>)}</div>
+    <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginTop:14}}>{[0,1,2,3].map(i=><i key={i} style={{height:180,borderRadius:'var(--r-card)',background:'var(--dm-sand)'}}/>)}</div>
+    <div style={{position:'absolute',inset:0,background:'rgba(38,31,21,.48)'}}/>
+  </div>;}
+function Lock({c='currentColor'}){return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2.2" strokeLinecap="round" style={{flex:'none'}}><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>;}
+function App(){
+  const [mealId,setMealId]=React.useState(1);
+  const [order,setOrder]=React.useState('wed');
+  const [photo,setPhoto]=React.useState(0);
+  const [more,setMore]=React.useState(false);
+  const [qty,setQty]=React.useState(1);
+  const [selected,setSelected]=React.useState(false);
+  const m=MEALS.find(x=>x.id===mealId);
+  const locked=order==='tue';
+  const swap=id=>{setMealId(id);setPhoto(0);setMore(false);setSelected(false);setQty(1);};
+  return <div className="app">
+    <Backdrop/>
+    <div style={{position:'absolute',insetInline:0,bottom:0,top:64,background:'var(--dm-paper)',borderRadius:'var(--r-sheet) var(--r-sheet) 0 0',boxShadow:'var(--sh-3)',display:'flex',flexDirection:'column',animation:'sheetUp var(--dur-sheet) var(--ease-serve) both',overflow:'hidden'}}>
+      <div style={{padding:'10px 20px 0'}}>
+        <div style={{width:40,height:4.5,borderRadius:'var(--r-pill)',background:'var(--dm-line-strong)',margin:'0 auto 10px'}}/>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <span className="micro" style={{flex:'none'}}>Picking for</span>
+          <div style={{display:'flex',gap:6,flex:1}}>
+            <button onClick={()=>{setOrder('wed');setSelected(false);}} style={{appearance:'none',cursor:'pointer',borderRadius:'var(--r-pill)',padding:'6px 12px',font:'600 12px var(--font-ui)',border:order==='wed'?'0':'1.5px solid var(--dm-line-strong)',background:order==='wed'?'var(--dm-ink)':'var(--dm-surface)',color:order==='wed'?'var(--dm-paper)':'var(--dm-ink-2)'}}>Wed 21</button>
+            <button onClick={()=>{setOrder('tue');setSelected(false);}} style={{appearance:'none',cursor:'pointer',borderRadius:'var(--r-pill)',padding:'6px 12px',font:'600 12px var(--font-ui)',border:order==='tue'?'0':'1.5px solid var(--dm-line-strong)',background:order==='tue'?'var(--dm-ink)':'var(--dm-surface)',color:order==='tue'?'var(--dm-paper)':'var(--dm-ink-2)',display:'flex',alignItems:'center',gap:5}}>Tue 20 <Lock/></button>
+          </div>
+          <a href="./meal-selection-calendar.html" aria-label="Close" style={{width:40,height:40,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></a>
+        </div>
+      </div>
+      <div style={{flex:1,overflowY:'auto',padding:'12px 20px 150px',scrollbarWidth:'none'}}>
+        <div style={{position:'relative'}}>
+          <div className="dm-photo" style={{height:236,filter:m.soldOut?'saturate(.35)':'none'}}><span className="dm-photo-note">{m.photos[photo]}</span></div>
+          {m.soldOut&&<span style={{position:'absolute',top:12,insetInlineStart:12,zIndex:2,background:'var(--st-failed-bg)',color:'var(--st-failed-fg)',borderRadius:'var(--r-pill)',padding:'5px 12px',font:'700 12px var(--font-ui)'}}>Sold out today</span>}
+          {m.premiumPrice&&!m.soldOut&&<span style={{position:'absolute',top:12,insetInlineStart:12,zIndex:2,background:'var(--dm-ink)',color:'var(--dm-saffron-300)',borderRadius:'var(--r-pill)',padding:'5px 12px',font:'700 12px var(--font-ui)'}}>Premium · +{m.premiumPrice} SAR</span>}
+          {m.photos.length>1&&<div style={{position:'absolute',bottom:10,insetInline:0,display:'flex',justifyContent:'center',gap:5,zIndex:2}}>
+            {m.photos.map((_,i)=><button key={i} onClick={()=>setPhoto(i)} aria-label={'Photo '+(i+1)} style={{appearance:'none',border:0,cursor:'pointer',width:i===photo?18:7,height:7,borderRadius:'var(--r-pill)',background:i===photo?'var(--dm-saffron-500)':'rgba(255,253,246,.85)',transition:'width .2s'}}/>)}
+          </div>}
+        </div>
+        <div style={{display:'flex',gap:6,marginTop:14,flexWrap:'wrap'}}>
+          {m.recommended&&<span style={{background:'var(--dm-saffron-100)',color:'var(--dm-saffron-700)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'700 11px var(--font-ui)'}}>Chef’s pick</span>}
+          <span style={{background:'var(--dm-sand)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>{m.tag}</span>
+        </div>
+        <h1 style={{margin:'8px 0 0',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)',textWrap:'pretty'}}>{m.name}</h1>
+        <div style={{display:'flex',alignItems:'center',gap:8,marginTop:8}}>
+          <div style={{width:30,height:30,borderRadius:'50%',background:'var(--dm-surface)',border:'1px solid var(--dm-line)',display:'flex',alignItems:'center',justifyContent:'center',font:'700 12px var(--font-display)',color:'var(--dm-ink-2)'}}>{m.kitchen[0]}</div>
+          <span style={{font:'600 13px var(--font-ui)'}}>{m.kitchen}</span>
+          <span style={{font:'500 12.5px var(--font-ui)',color:'var(--dm-ink-2)'}}><span style={{color:'var(--dm-saffron-500)'}}>★</span> {m.rating}</span>
+        </div>
+        <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:'14px 16px',marginTop:14,display:'flex',alignItems:'center',gap:16}}>
+          <div style={{flex:'none'}}>
+            <b style={{font:'700 34px/36px var(--font-display)'}}>{m.kcal}</b>
+            <span style={{display:'block',font:'600 var(--fs-micro)/var(--lh-micro) var(--font-ui)',letterSpacing:'.06em',textTransform:'uppercase',color:'var(--dm-ink-3)'}}>kcal</span>
+          </div>
+          <i style={{width:1,alignSelf:'stretch',background:'var(--dm-line)'}}/>
+          <div style={{display:'flex',flexDirection:'column',gap:7}}>
+            {[['Protein',m.protein,'var(--macro-protein)'],['Carbs',m.carbs,'var(--macro-carbs)'],['Fat',m.fat,'var(--macro-fat)']].map(([l,v,c])=>
+            <span key={l} style={{display:'flex',alignItems:'center',gap:8,font:'500 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>
+              <i style={{width:8,height:8,borderRadius:'50%',background:c,flex:'none'}}/>{l}<b style={{color:'var(--dm-ink)',fontVariantNumeric:'tabular-nums',marginInlineStart:'auto'}}>{v} gm</b>
+            </span>)}
+          </div>
+        </div>
+        <p style={{margin:'14px 0 0',font:'400 14px/21px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>
+          {more?m.desc:m.desc.slice(0,110)+'… '}
+          <a href="#more" onClick={e=>{e.preventDefault();setMore(!more);}} style={{fontWeight:700}}>{more?'Show less':'Read more'}</a>
+        </p>
+        <span className="micro" style={{display:'block',margin:'20px 0 8px'}}>More on Wednesday’s menu</span>
+        <div style={{display:'flex',flexDirection:'column',gap:8}}>
+          {MEALS.filter(x=>x.id!==mealId).map(x=><button key={x.id} onClick={()=>swap(x.id)} style={{appearance:'none',cursor:'pointer',textAlign:'start',display:'flex',gap:11,alignItems:'center',background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',padding:10}}>
+            <div className="dm-photo" style={{width:48,height:48,flex:'none',borderRadius:12,filter:x.soldOut?'saturate(.35)':'none'}}><span className="dm-photo-note" style={{fontSize:6.5}}>photo</span></div>
+            <div style={{flex:1,minWidth:0}}>
+              <b style={{display:'block',font:'600 14px/18px var(--font-display)',color:'var(--dm-ink)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{x.name}</b>
+              <span style={{font:'500 11px var(--font-ui)',color:x.soldOut?'var(--st-failed-fg)':'var(--dm-ink-3)'}}>{x.soldOut?'Sold out':x.kcal+' kcal · '+x.kitchen}</span>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--dm-ink-3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flex:'none'}}><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg>
+          </button>)}
+        </div>
+      </div>
+      <div style={{position:'absolute',insetInline:0,bottom:0,padding:'12px 20px 24px',background:'rgba(247,246,238,.9)',backdropFilter:'blur(14px)',borderTop:'1px solid var(--dm-line)'}}>
+        {locked?<div data-screen-label="Locked order bar">
+          <div style={{display:'flex',alignItems:'center',gap:7,marginBottom:9,font:'500 12px/16px var(--font-ui)',color:'var(--st-paused-fg)'}}><Lock/>Tuesday’s order locked Mon 9:00 PM — kitchens are already cooking.</div>
+          <Button block size="lg" disabled>Locked — can’t change</Button>
+        </div>
+        :m.soldOut?<div data-screen-label="Sold out bar">
+          <div style={{marginBottom:9,font:'500 12px var(--font-ui)',color:'var(--st-failed-fg)'}}>This dish sold out for Wed 21 — tomorrow’s batch opens 6:00 PM.</div>
+          <Button block size="lg" disabled>Sold out for Wed 21</Button>
+        </div>
+        :selected?<div data-screen-label="Selected bar">
+          <div style={{display:'flex',alignItems:'center',gap:7,marginBottom:9,font:'500 12px var(--font-ui)',color:'var(--dm-olive-700)'}}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 12.5 10 18 19.5 6.5"/></svg>
+            Selected for Wed 21{qty>1?` · ×${qty}`:''} — swap open until 9:00 PM Tue.
+          </div>
+          <div style={{display:'flex',gap:9}}>
+            <a href="./meal-selection-calendar.html" style={{flex:1,display:'block'}}><Button block size="lg" style={{width:'100%'}}>Back to calendar</Button></a>
+            <Button variant="ghost" size="lg" onClick={()=>setSelected(false)}>Remove</Button>
+          </div>
+        </div>
+        :<div style={{display:'flex',gap:10,alignItems:'center'}} data-screen-label="Select bar">
+          <div style={{display:'flex',alignItems:'center',gap:2,background:'var(--dm-surface)',border:'1.5px solid var(--dm-line-strong)',borderRadius:'var(--r-pill)',padding:3,flex:'none'}}>
+            <button onClick={()=>setQty(Math.max(1,qty-1))} aria-label="Less" style={{appearance:'none',border:0,cursor:'pointer',width:38,height:40,borderRadius:'var(--r-pill)',background:'none',font:'700 18px var(--font-ui)',color:qty>1?'var(--dm-ink)':'var(--dm-ink-3)'}}>−</button>
+            <b style={{font:'700 16px var(--font-display)',width:16,textAlign:'center'}}>{qty}</b>
+            <button onClick={()=>setQty(Math.min(3,qty+1))} aria-label="More" style={{appearance:'none',border:0,cursor:'pointer',width:38,height:40,borderRadius:'var(--r-pill)',background:'none',font:'700 18px var(--font-ui)',color:'var(--dm-ink)'}}>+</button>
+          </div>
+          <Button block size="lg" style={{flex:1}} onClick={()=>setSelected(true)}>Select for Wed 21{m.premiumPrice?` · +${m.premiumPrice*qty} SAR`:''}</Button>
+        </div>}
+      </div>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

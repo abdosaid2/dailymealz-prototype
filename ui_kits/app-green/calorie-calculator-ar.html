@@ -1,0 +1,110 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Calorie Calculator — Arabic (Green)" subtitle="حاسبة السعرات بالعربية: خطوتان، الرقم بطلاً بالأرقام الهندية، وخطة مقترحة" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — حاسبة السعرات</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.micro{font:600 11.5px var(--font-ui);color:var(--dm-ink-3)}
+.stp{display:flex;align-items:center;background:var(--dm-surface);border:1.5px solid var(--dm-line-strong);border-radius:var(--r-pill);padding:3px}
+.stp button{appearance:none;border:0;background:none;cursor:pointer;width:40px;height:40px;border-radius:var(--r-pill);font:700 19px var(--font-ui);color:var(--dm-ink)}
+.stp b{font:700 17px var(--font-display);min-width:72px;text-align:center}
+@keyframes popin{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+</style></head>
+<body data-screen-label="Calorie Calculator (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip}=window.DailymealzAppRedesignBrief_310f67;
+const AI=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const ACT=[['يوم مكتبي','جلوس أغلب الوقت'],['نشاط خفيف','واقف ساعات قليلة'],['نشيط','تمرين ٣–٥ مرات أسبوعياً'],['نشيط جداً','عمل بدني أو تمرين يومي']];
+function Stepper({v,set,min,max,unit}){
+  return <div className="stp">
+    <button aria-label="أقل" onClick={()=>set(Math.max(min,v-1))} style={{color:v>min?'var(--dm-ink)':'var(--dm-ink-3)'}}>−</button>
+    <b>{AI(v)} <span style={{font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>{unit}</span></b>
+    <button aria-label="أكثر" onClick={()=>set(Math.min(max,v+1))}>+</button>
+  </div>;}
+function App(){
+  const [step,setStep]=React.useState(0);
+  const [sex,setSex]=React.useState('m');
+  const [age,setAge]=React.useState(31);
+  const [h,setH]=React.useState(176);
+  const [w,setW]=React.useState(82);
+  const [act,setAct]=React.useState(0);
+  const [goal,setGoal]=React.useState('lose');
+  const bmr=sex==='m'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161;
+  const tdee=bmr*[1.25,1.4,1.55,1.72][act];
+  const target=Math.round((goal==='lose'?tdee-450:goal==='gain'?tdee+300:tdee)/10)*10;
+  const lunch=Math.round(target*.35/10)*10;
+  const row={display:'flex',justifyContent:'space-between',alignItems:'center',padding:'13px 0',borderBottom:'1px dashed var(--dm-line)'};
+  return <div className="app">
+    <div style={{padding:'18px 20px 0',display:'flex',alignItems:'center',gap:10}}>
+      <a href="./home-plans-ar.html" aria-label="رجوع" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{transform:'scaleX(-1)'}}><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <div style={{flex:1,display:'flex',gap:5}}>{[0,1].map(i=><i key={i} style={{flex:1,height:4,borderRadius:2,background:i<=Math.min(step,1)?'var(--dm-green-500)':'var(--dm-sand-2)'}}/>)}</div>
+      <a href="./home-plans-ar.html" style={{font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>تخطَّ</a>
+    </div>
+    {step===0&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="عنك">
+      <h1 style={{margin:'16px 0 2px',font:'700 var(--fs-d2)/34px var(--font-display)'}}>عنك</h1>
+      <span style={{font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)'}}>أربعة أرقام — لا يصل منها شيء للمطابخ.</span>
+      <div style={{marginTop:8}}>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>الجنس</span>
+          <div style={{display:'flex',gap:8}}><Chip selected={sex==='m'} onClick={()=>setSex('m')}>ذكر</Chip><Chip selected={sex==='f'} onClick={()=>setSex('f')}>أنثى</Chip></div></div>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>العمر</span><Stepper v={age} set={setAge} min={16} max={80} unit="سنة"/></div>
+        <div style={row}><span style={{font:'600 14px var(--font-ui)'}}>الطول</span><Stepper v={h} set={setH} min={140} max={210} unit="سم"/></div>
+        <div style={{...row,borderBottom:0}}><span style={{font:'600 14px var(--font-ui)'}}>الوزن</span><Stepper v={w} set={setW} min={40} max={160} unit="كجم"/></div>
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 28px'}}><Button block size="lg" onClick={()=>setStep(1)}>متابعة</Button></div>
+    </div>}
+    {step===1&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="نشاطك وهدفك">
+      <h1 style={{margin:'16px 0 2px',font:'700 var(--fs-d2)/34px var(--font-display)'}}>أيامك</h1>
+      <span style={{font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)'}}>اختر الأقرب لك — الدقة تجي لاحقاً.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:8,marginTop:14}}>
+        {ACT.map(([t,s],i)=><button key={t} onClick={()=>setAct(i)} style={{appearance:'none',cursor:'pointer',textAlign:'start',display:'flex',gap:11,alignItems:'center',background:'var(--dm-surface)',border:act===i?'2px solid var(--dm-green-500)':'1px solid var(--dm-line)',borderRadius:'var(--r-ctl)',padding:'11px 14px'}}>
+          <i style={{width:12,height:12,borderRadius:'50%',flex:'none',border:act===i?'4px solid var(--dm-green-500)':'2px solid var(--dm-line-strong)'}}/>
+          <span><b style={{font:'600 14px var(--font-ui)',display:'block'}}>{t}</b><span style={{font:'400 11.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span></span>
+        </button>)}
+      </div>
+      <span className="micro" style={{margin:'16px 0 8px'}}>الهدف</span>
+      <div style={{display:'flex',gap:8}}>
+        {[['lose','إنزال وزن'],['maintain','محافظة'],['gain','زيادة']].map(([k,l])=><Chip key={k} selected={goal===k} onClick={()=>setGoal(k)}>{l}</Chip>)}
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'16px 0 28px'}}><Button block size="lg" onClick={()=>setStep(2)}>اعرض رقمي</Button></div>
+    </div>}
+    {step===2&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',overflowY:'auto'}} data-screen-label="النتيجة">
+      <div className="dm-dots" style={{display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center',padding:'26px 0 4px'}}>
+        <span className="micro">هدفك اليومي</span>
+        <div style={{display:'flex',alignItems:'baseline',gap:6,animation:'popin .5s var(--ease-serve) both'}}>
+          <b style={{font:'800 72px/84px var(--font-display)'}}>{AI(target.toLocaleString('en-US').replace(',','٬'))}</b>
+          <span style={{font:'700 16px var(--font-ui)',color:'var(--dm-ink-2)'}}>سعرة</span>
+        </div>
+        <span style={{font:'400 13px/20px var(--font-ui)',color:'var(--dm-ink-2)',maxWidth:290,textWrap:'pretty'}}>وتيرة ثابتة نحو هدفك — منها نحو <b style={{color:'var(--dm-ink)'}}>{AI(lunch)} سعرة</b> نصيب الغداء.</span>
+      </div>
+      <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:16,marginTop:18}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span className="micro">الخطة المطابقة</span>
+          <span style={{background:'var(--dm-green-100)',color:'var(--dm-green-700)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'700 10.5px var(--font-ui)'}}>تناسب ميزانية غدائك</span>
+        </div>
+        <div style={{display:'flex',gap:12,alignItems:'center',marginTop:11}}>
+          <div className="dm-photo" style={{width:54,height:54,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{font:'700 17px/23px var(--font-display)'}}>الخفيف · ٢٠ غداء</b>
+            <span style={{display:'block',font:'400 12px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>أطباق بين ٤٥٠ و٥٥٠ سعرة · ٤٢ ر.س للوجبة</span>
+          </div>
+        </div>
+        <div style={{display:'flex',gap:9,marginTop:13}}>
+          <a href="./plan-details-ar.html" style={{flex:1,display:'block'}}><Button block style={{width:'100%'}}>اعرض خطة الخفيف</Button></a>
+          <a href="./nutrition-target.html" style={{display:'block'}}><Button variant="ghost">احفظ الهدف</Button></a>
+        </div>
+      </div>
+      <span style={{display:'block',font:'400 11.5px/17px var(--font-ui)',color:'var(--dm-ink-3)',margin:'12px 2px 0',textWrap:'pretty'}}>تقدير من مدخلاتك (معادلة ميفلين-سانت جور)، وليس نصيحة طبية. هدفك يظهر على كل قائمة — وكل وجبة توضح كيف تناسبه.</span>
+      <div style={{flex:1}}/>
+      <div style={{padding:'12px 0 28px',textAlign:'center'}}><button onClick={()=>setStep(0)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'600 13px var(--font-ui)',color:'var(--dm-ink-2)'}}>أعد الحساب</button></div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

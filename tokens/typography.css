@@ -1,0 +1,14 @@
+:root{
+/* Both families cover Latin + Arabic natively, so the voice survives RTL switch */
+--font-display:'Baloo Bhaijaan 2','Readex Pro',system-ui,sans-serif;
+--font-ui:'Readex Pro','Baloo Bhaijaan 2',system-ui,sans-serif;
+--font-mono:ui-monospace,'Menlo','Consolas',monospace;
+--fs-d1:34px;--lh-d1:40px;
+--fs-d2:24px;--lh-d2:30px;
+--fs-title:19px;--lh-title:25px;
+--fs-headline:16px;--lh-headline:22px;
+--fs-body:15px;--lh-body:22px;
+--fs-label:13px;--lh-label:18px;
+--fs-caption:12px;--lh-caption:16px;
+--fs-micro:11px;--lh-micro:14px;
+}

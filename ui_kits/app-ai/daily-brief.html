@@ -1,0 +1,119 @@
+<!-- @dsCard group="App Screens (AI)" viewport="390x844" name="AI — Daily Brief" subtitle="The dashboard becomes one brief: today's arrival, the single decision, coaching in a line — composer always live" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz AI — Daily brief</title>
+<link rel="stylesheet" href="../../styles-ai.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 8px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:16px;margin-top:12px;animation:dm-serve var(--dur-serve) var(--ease-serve) both}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="AI — Daily Brief"><div id="root"></div>
+<script type="text/babel">
+const {Button,StatusBadge,TabBar,MacroChips}=window.DailymealzAppRedesignBrief_310f67;
+const Mic=()=><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="3.5" width="6" height="10.5" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v2.5"/></svg>;
+const Send=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18.5V6M6.5 11.5 12 6l5.5 5.5"/></svg>;
+const Check=()=><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>;
+function StatusBar(){return <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 24px 6px',fontFamily:'var(--font-ui)',fontSize:14,fontWeight:600}}>
+  <span>12:04</span>
+  <span style={{display:'flex',gap:5,alignItems:'center'}}>
+    <span style={{display:'flex',gap:1.5,alignItems:'flex-end'}}>{[4,6,8,10].map(h=><i key={h} style={{width:3,height:h,background:'var(--dm-ink)',borderRadius:1}}/>)}</span>
+    <i style={{width:22,height:11,border:'1.5px solid var(--dm-ink)',borderRadius:3.5,display:'inline-flex',padding:1.5}}><i style={{width:'72%',background:'var(--dm-ink)',borderRadius:1.5}}/></i>
+  </span></div>;}
+const WEEK=[{d:'S',n:18,s:'today'},{d:'M',n:19,s:'set'},{d:'T',n:20,s:'set'},{d:'W',n:21,s:'set'},{d:'T',n:22,s:'set'}];
+function App(){
+  const [kept,setKept]=React.useState(false);
+  return <div className="app">
+    <div className="dm-dots" style={{background:'var(--dm-paper)'}}>
+      <StatusBar/>
+      <div style={{display:'flex',alignItems:'center',gap:12,padding:'10px 20px 14px'}}>
+        <div style={{width:44,height:44,borderRadius:'50%',background:'var(--dm-saffron-100)',display:'flex',alignItems:'center',justifyContent:'center',font:'700 17px var(--font-display)',color:'var(--dm-saffron-700)'}}>F</div>
+        <div style={{flex:1}}>
+          <h1 style={{margin:0,font:'600 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>Salam, Faisal</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>Sunday 18 Jan · Olaya office</span>
+        </div>
+        <a href="./swap-conversation.html" aria-label="Talk to Mealz" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center'}}><i className="ai-dot" style={{'--ai-dot-size':'12px'}}></i></a>
+      </div>
+    </div>
+    <div className="scroll">
+      <section className="card" style={{marginTop:2}} data-screen-label="Today's brief">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <div className="ai-att"><i className="ai-dot"></i>Today's brief</div>
+          <StatusBadge status="assigned" size="sm"/>
+        </div>
+        <p className="ai-msg" style={{margin:'8px 0 0',font:'400 13.5px/19px var(--font-ui)'}}>Kabsa's about 25 minutes out. One decision when you're ready — tomorrow locks at 9:00 PM.</p>
+        <div style={{display:'flex',alignItems:'baseline',gap:8,marginTop:10}}>
+          <b style={{font:'700 30px/36px var(--font-display)'}}>12:15–12:45</b>
+        </div>
+        <div style={{borderTop:'1px dashed var(--dm-line)',marginTop:10,paddingTop:11,display:'flex',gap:11,alignItems:'center'}}>
+          <div className="dm-photo" style={{width:48,height:48,flex:'none',borderRadius:12}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{display:'block',font:'600 15px/19px var(--font-display)'}}>Chicken Kabsa</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>Wafra Kitchen · Ahmed is driving</span>
+          </div>
+          <a href="../app-green/subscription-dashboard.html" style={{display:'block'}}><Button variant="secondary" size="sm">Track</Button></a>
+        </div>
+      </section>
+      <section className="card" style={{animationDelay:'40ms'}} data-screen-label="Tomorrow's decision">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+          <span className="micro">Tomorrow · Mon 19</span>
+          <span style={{background:'var(--st-pending-bg)',color:'var(--st-pending-fg)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'600 11px var(--font-ui)'}}>Locks 9:00 PM</span>
+        </div>
+        <div style={{display:'flex',gap:11,alignItems:'center',marginTop:12}}>
+          <div className="dm-photo" style={{width:56,height:56,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{display:'block',font:'600 15px/19px var(--font-display)'}}>Grilled Salmon &amp; Freekeh</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>Nabta</span>
+            <MacroChips kcal={528} protein={34} carbs={41} fat={22} size="sm" style={{marginTop:3}}/>
+          </div>
+        </div>
+        <div className="ai-why" style={{marginTop:9}}>your ★5 from Jan 6 — and Mondays you go lighter</div>
+        {kept
+          ?<div style={{display:'flex',alignItems:'center',gap:8,marginTop:12}}><span className="ai-taught" style={{background:'var(--st-delivered-bg)',color:'var(--st-delivered-fg)'}}><Check/>Locked for Monday</span><button onClick={()=>setKept(false)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'600 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>Undo</button></div>
+          :<div style={{display:'flex',gap:8,marginTop:12}}>
+            <Button size="sm" onClick={()=>setKept(true)}>Keep it</Button>
+            <a href="./swap-conversation.html" style={{display:'block'}}><Button variant="ghost" size="sm">See 3 alternatives</Button></a>
+          </div>}
+      </section>
+      <section className="card" style={{animationDelay:'80ms',display:'flex',alignItems:'center',gap:12,padding:'13px 16px'}} data-screen-label="Coach line">
+        <div style={{flex:1,minWidth:0}}>
+          <b style={{font:'600 13.5px/18px var(--font-display)'}}>3 for 3 days within target</b>
+          <span style={{display:'block',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-2)'}}>Friday's wide open — talk to me about pizza.</span>
+        </div>
+        <a href="./nutrition-coach.html" style={{font:'600 12px var(--font-ui)',flex:'none'}}>Coach</a>
+      </section>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',margin:'16px 2px 0'}} data-screen-label="Week strip">
+        <span className="micro">This week · set by Mealz</span>
+        <a href="../app-green/meal-selection-calendar.html" style={{font:'600 12px var(--font-ui)'}}>Open calendar</a>
+      </div>
+      <div style={{display:'flex',gap:8,marginTop:9}}>
+        {WEEK.map((w,i)=><div key={i} style={{flex:1,background:'var(--dm-surface)',border:w.s==='today'?'2px solid var(--dm-green-500)':'1px solid var(--dm-line)',borderRadius:14,padding:'8px 0',textAlign:'center'}}>
+          <span className="micro" style={{display:'block'}}>{w.d}</span>
+          <b style={{font:'700 15px/19px var(--font-display)'}}>{w.n}</b>
+          {w.s==='today'
+            ?<i style={{display:'block',width:8,height:8,borderRadius:'50%',background:'var(--dm-green-500)',margin:'4px auto 0',animation:'dm-pulse 1.6s infinite'}}/>
+            :<svg style={{display:'block',margin:'3px auto 0'}} width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="var(--dm-ink-3)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>}
+        </div>)}
+      </div>
+      <span style={{display:'block',font:'400 11px/15px var(--font-ui)',color:'var(--dm-ink-3)',margin:'8px 2px 0'}}>12 lunches left · renews Feb 4 · <a href="../app-green/subscription-manage.html" style={{font:'600 11px var(--font-ui)'}}>Manage</a></span>
+    </div>
+    <div style={{padding:'6px 16px 8px'}} data-screen-label="Composer">
+      <a href="./swap-conversation.html" style={{display:'block',color:'inherit'}}>
+        <div className="ai-composer">
+          <input readOnly placeholder="Ask or change anything — 'skip Thursday'…" style={{cursor:'pointer'}}/>
+          <span className="ai-icbtn" aria-hidden="true"><Mic/></span>
+          <span className="ai-icbtn send" aria-hidden="true"><Send/></span>
+        </div>
+      </a>
+    </div>
+    <TabBar active="subs" onChange={t=>{if(t==='home')location.href='../app-green/home-plans.html';if(t==='biz')location.href='../app-green/catering-inquiry.html';if(t==='account')location.href='../app-green/account-wallet.html';}}/>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

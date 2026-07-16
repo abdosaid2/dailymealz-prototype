@@ -1,0 +1,83 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Calendar — Arabic (Green)" subtitle="RTL weekly planning under the brand green" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — اختر وجباتك</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:4px 20px 130px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.hstrip{display:flex;gap:8px;overflow-x:auto;padding:2px 20px 12px;scrollbar-width:none}
+.hstrip::-webkit-scrollbar{display:none}
+</style></head>
+<body data-screen-label="Meal Selection Calendar (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,Chip,MealCard,DayPill}=window.DailymealzAppRedesignBrief_310f67;
+const AI=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const MEALS=[
+{id:1,name:'دجاج مشوي بالزعفران مع أرز',kitchen:'مطبخ وفرة',kcal:612,protein:38,carbs:52,fat:18,recommended:true},
+{id:2,name:'سلمون مشوي مع كينوا',kitchen:'نبتة',kcal:528,protein:34,carbs:41,fat:22,premiumPrice:7},
+{id:3,name:'رول مسخّن بالدجاج',kitchen:'بيت زاد',kcal:486,protein:31,carbs:44,fat:19},
+{id:4,name:'صحن شمندر وحلومي بالحبوب',kitchen:'نبتة',kcal:432,protein:22,carbs:39,fat:21},
+{id:5,name:'كبسة لحم',kitchen:'مطبخ وفرة',kcal:702,protein:41,carbs:68,fat:27,soldOut:true},
+{id:6,name:'سلطة كينوا بالرمان',kitchen:'ليمونة',kcal:388,protein:18,carbs:42,fat:16}];
+const DAYS=[
+{key:'sun18',day:'الأحد',date:18,initial:1},{key:'mon19',day:'الاثنين',date:19,initial:2},{key:'tue20',day:'الثلاثاء',date:20,initial:5},
+{key:'wed21',day:'الأربعاء',date:21,initial:null},{key:'thu22',day:'الخميس',date:22,initial:null},
+{key:'fri23',day:'الجمعة',date:23,off:true},{key:'sat24',day:'السبت',date:24,off:true},
+{key:'sun25',day:'الأحد',date:25,initial:null},{key:'mon26',day:'الاثنين',date:26,initial:null}];
+const FILTERS=[{k:'all',l:'الكل'},{k:'protein',l:'بروتين عالي',dot:'var(--macro-protein)'},{k:'lowcarb',l:'كارب أقل',dot:'var(--macro-carbs)'},{k:'light',l:'أقل من ٥٠٠ سعرة'},{k:'premium',l:'مميّز'}];
+function ChevronStart(){return <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{transform:'scaleX(-1)'}}><path d="M12.5 4.5 7 10l5.5 5.5"/></svg>;}
+function App(){
+  const [dayKey,setDayKey]=React.useState('wed21');
+  const [picks,setPicks]=React.useState(Object.fromEntries(DAYS.map(d=>[d.key,d.initial??null])));
+  const [filter,setFilter]=React.useState('all');
+  const day=DAYS.find(d=>d.key===dayKey);
+  const picked=Object.entries(picks).filter(([k,v])=>v!=null).length;
+  const sel=picks[dayKey];
+  const selMeal=MEALS.find(m=>m.id===sel);
+  const visible=MEALS.filter(m=>filter==='all'||(filter==='protein'&&m.protein>=31)||(filter==='lowcarb'&&m.carbs<=42)||(filter==='light'&&m.kcal<500)||(filter==='premium'&&m.premiumPrice));
+  const confirm=()=>{const next=DAYS.find(d=>!d.off&&picks[d.key]==null&&d.key!==dayKey);if(next)setDayKey(next.key);else location.href='./cart-checkout-ar.html';};
+  return <div className="app">
+    <div style={{padding:'18px 20px 10px',display:'flex',alignItems:'center',gap:10}}>
+      <a href="./subscription-dashboard-ar.html" aria-label="رجوع" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)'}}><ChevronStart/></a>
+      <div style={{flex:1}}>
+        <h1 style={{margin:0,font:'600 21px/28px var(--font-display)'}}>اختر وجباتك</h1>
+        <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>خطة التوازن · ٢٠ غداء · يناير</span>
+      </div>
+      <span style={{background:'var(--dm-saffron-100)',color:'var(--dm-saffron-700)',borderRadius:'var(--r-pill)',padding:'7px 13px',font:'700 12.5px var(--font-ui)',whiteSpace:'nowrap'}}>{AI(picked)} من {AI(20)}</span>
+    </div>
+    <div className="hstrip">
+      {DAYS.map(d=><DayPill key={d.key} day={d.day} date={d.date} locale="ar"
+        state={d.off?'off':d.key===dayKey?'selected':'default'}
+        picked={picks[d.key]!=null} onClick={()=>setDayKey(d.key)}/>)}
+    </div>
+    <div className="hstrip" style={{paddingBottom:10}}>
+      {FILTERS.map(f=><Chip key={f.k} selected={filter===f.k} dot={f.dot} onClick={()=>setFilter(f.k)} style={{flex:'none'}}>{f.l}</Chip>)}
+    </div>
+    <div className="scroll">
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',margin:'6px 2px 10px'}}>
+        <span style={{font:'600 11.5px/var(--lh-micro) var(--font-ui)',color:'var(--dm-ink-3)'}}>{day.day} {AI(day.date)} يناير · قائمة اليوم</span>
+        <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{AI(visible.length)} وجبات</span>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+        {visible.map((m,i)=><MealCard key={m.id} {...m} locale="ar" selected={sel===m.id}
+          onSelect={()=>setPicks({...picks,[dayKey]:sel===m.id?null:m.id})}
+          style={{animation:`dm-serve var(--dur-serve) var(--ease-serve) ${i*40}ms both`}}/>)}
+      </div>
+    </div>
+    <div style={{position:'absolute',insetInline:0,bottom:0,padding:'12px 20px 24px',background:'rgba(247,246,238,.88)',backdropFilter:'blur(14px)',borderTop:'1px solid var(--dm-line)',maxWidth:390,margin:'0 auto'}}>
+      {selMeal?<div style={{display:'flex',alignItems:'center',gap:6,marginBottom:9,font:'500 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>
+        <i style={{width:7,height:7,borderRadius:'50%',background:'var(--dm-saffron-500)',flex:'none'}}/>
+        <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{day.day} {AI(day.date)} · {selMeal.name}{selMeal.premiumPrice?` · +${AI(selMeal.premiumPrice)} ر.س`:''}</span>
+      </div>:<div style={{marginBottom:9,font:'500 12px var(--font-ui)',color:'var(--dm-ink-3)'}}>اختر وجبة ليوم {day.day} {AI(day.date)}</div>}
+      <Button block size="lg" disabled={!selMeal} onClick={confirm}>{selMeal?`تأكيد ${day.day} ${AI(day.date)}`:'اختر وجبة للمتابعة'}</Button>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

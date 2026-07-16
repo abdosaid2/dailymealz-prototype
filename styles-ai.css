@@ -1,0 +1,26 @@
+/* Dailymealz — AI-NATIVE exploration (direction/ai-native-version.html).
+   Extends Brand Green; adds ONLY what the assistant needs — the marker, conversation
+   primitives, thinking/teaching patterns. Documented in guidelines-ai/. */
+@import url('styles-green.css');
+:root{
+--ai-dot:var(--dm-green-500); /* the marker: the wordmark's period, promoted to a presence */
+--ai-dot-size:10px;
+--dur-think:1200ms; /* one simmer cycle */
+}
+@keyframes ai-simmer{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.68);opacity:.5}}
+@keyframes ai-caret{0%,100%{opacity:1}50%{opacity:0}}
+.ai-dot{width:var(--ai-dot-size);height:var(--ai-dot-size);border-radius:50%;background:var(--ai-dot);flex:none;display:inline-block}
+.ai-dot.think{animation:ai-simmer var(--dur-think) ease-in-out infinite}
+.ai-caret{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ai-dot);margin-inline-start:3px;animation:ai-caret .9s steps(1) infinite}
+.ai-att{display:flex;align-items:center;gap:7px;font:600 11px/14px var(--font-ui);letter-spacing:.05em;text-transform:uppercase;color:var(--dm-ink-3)}
+.ai-msg{font:400 var(--fs-body)/var(--lh-body) var(--font-ui);color:var(--dm-ink);text-wrap:pretty;margin:0}
+.ai-user{align-self:flex-end;max-width:80%;background:var(--dm-sand);border-radius:18px;border-end-end-radius:6px;padding:9px 14px;font:500 14px/20px var(--font-ui);color:var(--dm-ink)}
+.ai-why{display:flex;align-items:baseline;gap:6px;font:500 11.5px/15px var(--font-ui);color:var(--dm-ink-2)}
+.ai-why::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ai-dot);flex:none;transform:translateY(-1.5px)}
+.ai-step{display:flex;align-items:center;gap:8px;font:500 12.5px/17px var(--font-ui);color:var(--dm-ink-2)}
+.ai-taught{display:inline-flex;align-items:center;gap:6px;background:var(--dm-green-100);color:var(--dm-green-700);border-radius:var(--r-pill);padding:4px 11px;font:700 10.5px/14px var(--font-ui)}
+.ai-composer{display:flex;align-items:center;gap:4px;background:var(--dm-surface);border:1.5px solid var(--dm-line-strong);border-radius:var(--r-pill);padding:5px 5px 5px 16px;box-shadow:var(--sh-2)}
+.ai-composer input{flex:1;border:0;outline:none;background:none;font:400 14px var(--font-ui);color:var(--dm-ink);min-width:0;height:34px}
+.ai-composer input::placeholder{color:var(--dm-ink-3)}
+.ai-icbtn{width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--dm-ink-2);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+.ai-icbtn.send{background:var(--dm-green-500);color:var(--dm-ink)}

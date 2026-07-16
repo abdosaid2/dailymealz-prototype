@@ -1,0 +1,70 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Calories-per-day Target" subtitle="Target view under Account: edited-vs-calculated, adjust stepper, how the plan tracks against it" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Daily target</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 30px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);margin-top:12px;padding:16px}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="Calories-per-day Target (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,MacroChips}=window.DailymealzAppRedesignBrief_310f67;
+const CALC=2210;
+const WEEK=[['Sun',612],['Mon',528],['Tue',486],['Wed',null],['Thu',388]];
+function App(){
+  const [target,setTarget]=React.useState(CALC);
+  const lunch=Math.round(target*.35/10)*10;
+  const edited=target!==CALC;
+  return <div className="app">
+    <div style={{display:'flex',gap:12,alignItems:'center',padding:'18px 20px 8px'}}>
+      <a href="./account-wallet.html" aria-label="Back" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <h1 style={{margin:0,font:'600 21px var(--font-display)'}}>Daily target</h1>
+    </div>
+    <div className="scroll">
+      <div className="dm-dots card" style={{textAlign:'center',padding:'20px 16px'}} data-screen-label="Target hero">
+        <span className="micro">Calories per day</span>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:14,marginTop:6}}>
+          <button aria-label="Lower target" onClick={()=>setTarget(target-50)} style={{appearance:'none',cursor:'pointer',width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',font:'700 20px var(--font-ui)',color:'var(--dm-ink)'}}>−</button>
+          <b style={{font:'800 56px/58px var(--font-display)',fontVariantNumeric:'tabular-nums',minWidth:170}}>{target.toLocaleString()}</b>
+          <button aria-label="Raise target" onClick={()=>setTarget(target+50)} style={{appearance:'none',cursor:'pointer',width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',font:'700 20px var(--font-ui)',color:'var(--dm-ink)'}}>+</button>
+        </div>
+        {edited?<span style={{display:'inline-flex',alignItems:'center',gap:6,marginTop:8,background:'var(--dm-amber-100)',color:'var(--dm-amber-700)',borderRadius:'var(--r-pill)',padding:'4px 12px',font:'600 11.5px var(--font-ui)'}}>Edited · calculated was {CALC.toLocaleString()} <button onClick={()=>setTarget(CALC)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',padding:0,font:'700 11.5px var(--font-ui)',color:'var(--dm-amber-700)',textDecoration:'underline'}}>reset</button></span>
+        :<span style={{display:'inline-block',marginTop:8,background:'var(--dm-sand)',color:'var(--dm-ink-2)',borderRadius:'var(--r-pill)',padding:'4px 12px',font:'600 11.5px var(--font-ui)'}}>Calculated Jan 12 · <a href="./calorie-calculator.html" style={{fontWeight:700}}>redo</a></span>}
+        <span style={{display:'block',marginTop:10,font:'400 12.5px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>Lunch's share: about <b style={{color:'var(--dm-ink)'}}>{lunch} kcal</b> — menus flag meals that fit.</span>
+      </div>
+      <div className="card" data-screen-label="Plan vs target">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span className="micro">This week vs your lunch budget</span>
+          <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>Balanced plan</span>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:9,marginTop:12}}>
+          {WEEK.map(([d,k])=><div key={d} style={{display:'flex',alignItems:'center',gap:10}}>
+            <span style={{font:'600 12px var(--font-ui)',width:34,flex:'none',color:'var(--dm-ink-2)'}}>{d}</span>
+            <div style={{flex:1,height:9,borderRadius:5,background:'var(--dm-sand)',overflow:'hidden'}}>
+              {k&&<i style={{display:'block',height:'100%',width:Math.min(100,k/lunch*100)+'%',borderRadius:5,background:k>lunch?'var(--dm-amber-500)':'var(--dm-green-500)'}}/>}
+            </div>
+            <b style={{font:'600 12px var(--font-display)',width:66,textAlign:'end',fontVariantNumeric:'tabular-nums',color:k?(k>lunch?'var(--dm-amber-700)':'var(--dm-ink)'):'var(--dm-ink-3)'}}>{k?k+' kcal':'no meal'}</b>
+          </div>)}
+        </div>
+        <span style={{display:'block',marginTop:11,font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>Sunday runs {612-lunch>0?612-lunch:0} kcal over budget — balance it lighter at dinner, or swap. Never a lecture, just the number.</span>
+      </div>
+      <div className="card" style={{display:'flex',gap:12,alignItems:'center'}}>
+        <div style={{flex:1,minWidth:0}}>
+          <b style={{font:'600 14px/18px var(--font-display)'}}>Yesterday's Musakhan Roll</b>
+          <MacroChips kcal={486} protein={31} carbs={44} fat={19} size="sm" style={{marginTop:4}}/>
+        </div>
+        <span style={{background:'var(--dm-green-100)',color:'var(--dm-green-700)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'700 11px var(--font-ui)',flex:'none'}}>Fit the budget</span>
+      </div>
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

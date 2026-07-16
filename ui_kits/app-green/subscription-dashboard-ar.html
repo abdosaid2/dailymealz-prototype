@@ -1,0 +1,125 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Dashboard — Arabic (Green)" subtitle="RTL dashboard under the brand green, Arabic-Indic numerals" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — اشتراكي</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 20px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:16px;margin-top:12px;animation:dm-serve var(--dur-serve) var(--ease-serve) both}
+.micro{font:600 11.5px/var(--lh-micro) var(--font-ui);color:var(--dm-ink-3)}
+</style></head>
+<body data-screen-label="Subscription Dashboard (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,StatusBadge,TabBar,MacroChips,MealsRing,OrderCard}=window.DailymealzAppRedesignBrief_310f67;
+function StatusBar(){return <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'14px 24px 6px',fontFamily:'var(--font-ui)',fontSize:14,fontWeight:600}}>
+  <span>١٢:٠٤</span>
+  <span style={{display:'flex',gap:5,alignItems:'center'}}>
+    <span style={{display:'flex',gap:1.5,alignItems:'flex-end'}}>{[4,6,8,10].map(h=><i key={h} style={{width:3,height:h,background:'var(--dm-ink)',borderRadius:1}}/>)}</span>
+    <i style={{width:22,height:11,border:'1.5px solid var(--dm-ink)',borderRadius:3.5,display:'inline-flex',padding:1.5}}><i style={{width:'72%',background:'var(--dm-ink)',borderRadius:1.5}}/></i>
+  </span></div>;}
+function Timeline(){
+  const steps=[{l:'تم الطلب',s:'done'},{l:'تم القبول',s:'done'},{l:'في الطريق',s:'now'},{l:'التوصيل',s:'todo'}];
+  return <div style={{display:'flex',alignItems:'flex-start',marginTop:14}}>
+    {steps.map((st,i)=><React.Fragment key={st.l}>
+      {i>0&&<i style={{flex:1,height:2,marginTop:6,borderRadius:1,background:st.s==='todo'?'var(--dm-line)':'var(--dm-saffron-300)'}}/>}
+      <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:5,width:st.s==='now'?66:56,flex:'none'}}>
+        <i style={{width:14,height:14,borderRadius:'50%',boxSizing:'border-box',
+          background:st.s==='done'?'var(--dm-saffron-300)':st.s==='now'?'var(--dm-saffron-500)':'var(--dm-surface)',
+          border:st.s==='todo'?'2px solid var(--dm-line-strong)':'none',
+          animation:st.s==='now'?'dm-pulse 1.6s infinite':'none'}}/>
+        <span style={{font:st.s==='now'?'600 10.5px var(--font-ui)':'500 10.5px var(--font-ui)',color:st.s==='now'?'var(--dm-ink)':'var(--dm-ink-3)',whiteSpace:'nowrap'}}>{st.l}</span>
+      </div></React.Fragment>)}
+  </div>;}
+function Stars(){
+  const [r,setR]=React.useState(0);
+  return <div style={{display:'flex',gap:2}}>{[1,2,3,4,5].map(i=><button key={i} onClick={()=>setR(i)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',fontSize:24,lineHeight:1,padding:'2px 3px',color:i<=r?'var(--dm-saffron-500)':'var(--dm-sand-2)'}}>★</button>)}</div>;}
+function App(){
+  return <div className="app">
+    <div className="dm-dots" style={{background:'var(--dm-paper)'}}>
+      <StatusBar/>
+      <div style={{display:'flex',alignItems:'center',gap:12,padding:'10px 20px 16px'}}>
+        <div style={{width:44,height:44,borderRadius:'50%',background:'var(--dm-saffron-100)',display:'flex',alignItems:'center',justifyContent:'center',font:'700 17px var(--font-display)',color:'var(--dm-saffron-700)'}}>ف</div>
+        <div style={{flex:1}}>
+          <h1 style={{margin:0,font:'600 var(--fs-d2)/var(--lh-d2) var(--font-display)'}}>أهلاً، فيصل</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>الأحد ١٨ يناير · مكتب العليا</span>
+        </div>
+        <button aria-label="الدعم" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',gap:3}}>{[0,1,2].map(i=><i key={i} style={{width:4,height:4,borderRadius:'50%',background:'var(--dm-ink-2)'}}/>)}</button>
+      </div>
+    </div>
+    <div className="scroll">
+      <section className="card" style={{marginTop:2}} data-screen-label="بطاقة اليوم">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+          <span className="micro">غداء اليوم</span><StatusBadge status="assigned" locale="ar" size="sm"/>
+        </div>
+        <div style={{display:'flex',alignItems:'baseline',gap:10,marginTop:8}}>
+          <b dir="ltr" style={{font:'700 var(--fs-d1)/var(--lh-d1) var(--font-display)',whiteSpace:'nowrap',unicodeBidi:'isolate'}}>١٢:١٥–١٢:٤٥</b>
+        </div>
+        <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>أحمد في الطريق إلى مكتب العليا</span>
+        <Timeline/>
+        <div style={{borderTop:'1px dashed var(--dm-line)',marginTop:14,paddingTop:12,display:'flex',gap:11,alignItems:'center'}}>
+          <div className="dm-photo" style={{width:48,height:48,flex:'none',borderRadius:12}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{display:'block',font:'600 15px/20px var(--font-display)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>دجاج مشوي بالزعفران مع أرز</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>مطبخ وفرة</span>
+          </div>
+          <Button variant="secondary" size="sm">اتصل بالسائق</Button>
+        </div>
+      </section>
+      <section className="card" style={{animationDelay:'40ms'}} data-screen-label="وجبة الغد">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8}}>
+          <span className="micro">الغد · الاثنين ١٩</span>
+          <span style={{background:'var(--st-pending-bg)',color:'var(--st-pending-fg)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'600 11px var(--font-ui)'}}>التبديل يُغلق ٩:٠٠ م</span>
+        </div>
+        <div style={{display:'flex',gap:11,alignItems:'center',marginTop:12}}>
+          <div className="dm-photo" style={{width:56,height:56,flex:'none'}}><span className="dm-photo-note" style={{fontSize:7}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{display:'block',font:'600 15px/20px var(--font-display)'}}>سلمون مشوي مع كينوا</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>نبتة</span>
+            <MacroChips kcal={528} protein={34} carbs={41} fat={22} locale="ar" size="sm" style={{marginTop:3}}/>
+          </div>
+        </div>
+        <div style={{display:'flex',gap:8,marginTop:13}}>
+          <Button size="sm">تبديل الوجبة</Button>
+          <Button variant="ghost" size="sm">قائمة الاثنين</Button>
+        </div>
+      </section>
+      <section className="card" style={{background:'var(--dm-sand)',border:'none',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,padding:'12px 16px',animationDelay:'80ms'}} data-screen-label="تقييم">
+        <div><b style={{font:'600 14px/19px var(--font-display)'}}>كيف كان المسخّن أمس؟</b>
+        <span style={{display:'block',font:'400 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>وصل أمس</span></div>
+        <Stars/>
+      </section>
+      <section className="card" style={{display:'flex',alignItems:'center',gap:16,animationDelay:'120ms'}} data-screen-label="خطة الاشتراك">
+        <MealsRing remaining={12} total={20} size={84} locale="ar"/>
+        <div style={{flex:1}}>
+          <b style={{font:'600 var(--fs-headline)/var(--lh-headline) var(--font-ui)'}}>متبقي ١٢ غداء</b>
+          <span style={{display:'block',font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>خطة التوازن · يتجدد ٤ فبراير · التجديد التلقائي مفعّل</span>
+          <div style={{display:'flex',gap:8,marginTop:9}}>
+            <Button variant="outline" size="sm">إيقاف مؤقت</Button>
+            <Button variant="ghost" size="sm">تخطي أيام</Button>
+          </div>
+        </div>
+      </section>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',margin:'18px 2px 0'}}>
+        <span className="micro">هذا الأسبوع</span>
+        <a href="./meal-selection-calendar.html" style={{font:'600 12px var(--font-ui)'}}>افتح التقويم</a>
+      </div>
+      <div style={{display:'flex',gap:10,overflowX:'auto',paddingTop:10,paddingBottom:4,scrollbarWidth:'none'}}>
+        <OrderCard compact locale="ar" style={{width:200,flex:'none'}} dateLabel="الثلاثاء ٢٠" status="pending" mealName="كبسة لحم" kitchen="مطبخ وفرة" canChange/>
+        <div className="card" style={{width:200,flex:'none',margin:0,borderStyle:'dashed',borderColor:'var(--dm-line-strong)',boxShadow:'none',display:'flex',flexDirection:'column',gap:8,justifyContent:'center'}}>
+          <span style={{font:'600 12px var(--font-ui)',color:'var(--dm-ink-2)'}}>الأربعاء ٢١ · بلا وجبة بعد</span>
+          <a href="./meal-selection-calendar.html" style={{display:'inline-flex',alignItems:'center',justifyContent:'center',height:38,borderRadius:'var(--r-pill)',background:'var(--dm-saffron-500)',color:'var(--dm-ink)',font:'600 12.5px var(--font-ui)'}}>اختر وجبة</a>
+        </div>
+        <OrderCard compact locale="ar" style={{width:200,flex:'none'}} dateLabel="الخميس ٢٢" status="pending" mealName="سلطة كينوا بالرمان" kitchen="ليمونة" canChange/>
+      </div>
+    </div>
+    <TabBar active="subs" locale="ar"/>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

@@ -1,0 +1,108 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="B2B Recurring — Arabic (Green)" subtitle="جدول الأسبوع الثابت برعاية الشركة — عدّاد الاستحقاق وورقة الفروع بالعربية" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — أسبوعي في العمل</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column;position:relative}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 90px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);margin-top:12px}
+.micro{font:600 11.5px var(--font-ui);color:var(--dm-ink-3)}
+@keyframes sheetUp{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+</style></head>
+<body data-screen-label="B2B Recurring (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,TabBar,StatusBadge}=window.DailymealzAppRedesignBrief_310f67;
+const AI=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const INIT=[
+{d:'الأحد',meal:'دجاج مشوي بالزعفران مع أرز',k:'مطبخ وفرة',qty:1,on:true,locked:true},
+{d:'الاثنين',meal:'سلمون مشوي مع كينوا',k:'نبتة',qty:1,on:true,locked:true},
+{d:'الثلاثاء',meal:'رول مسخّن بالدجاج',k:'بيت زاد',qty:2,on:true},
+{d:'الأربعاء',meal:'صحن شمندر وحلومي بالحبوب',k:'نبتة',qty:1,on:true},
+{d:'الخميس',meal:null,k:null,qty:1,on:false}];
+const BRANCHES=['المقر الرئيسي — العليا · برج التعاونية','جرانادا بزنس بارك · مبنى B4','فرع حي السفارات · بوابة ٣'];
+function Lock(){return <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" style={{flex:'none'}}><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>;}
+function App(){
+  const [days,setDays]=React.useState(INIT);
+  const [branch,setBranch]=React.useState(0);
+  const [sheet,setSheet]=React.useState(false);
+  const used=days.filter(x=>x.on&&x.meal).reduce((s,x)=>s+x.qty,0);
+  const upd=(i,p)=>setDays(days.map((x,j)=>j===i?{...x,...p}:x));
+  return <div className="app">
+    <div className="dm-dots" style={{padding:'20px 20px 14px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <div style={{width:48,height:48,borderRadius:16,background:'var(--dm-sky-100)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 20px var(--font-display)',color:'var(--dm-sky-700)',flex:'none'}}>ت</div>
+        <div style={{flex:1,minWidth:0}}>
+          <h1 style={{margin:0,font:'600 var(--fs-d2)/34px var(--font-display)'}}>أسبوعك في العمل</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}>برعاية التعاونية · <button onClick={()=>setSheet(true)} style={{appearance:'none',border:0,background:'none',cursor:'pointer',padding:0,font:'600 12px var(--font-ui)',color:'var(--dm-green-700)'}}>المقر الرئيسي ▾</button></span>
+        </div>
+      </div>
+    </div>
+    <div className="scroll">
+      <div className="card" style={{padding:'13px 16px',marginTop:0}} data-screen-label="عدّاد الاستحقاق">
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
+          <span className="micro">استحقاق هذا الأسبوع</span>
+          <b style={{font:'700 15px var(--font-display)'}}>{AI(used)} من {AI(8)}</b>
+        </div>
+        <div style={{height:7,borderRadius:4,background:'var(--dm-sand)',marginTop:8,overflow:'hidden'}}><i style={{display:'block',height:'100%',width:(used/8*100)+'%',borderRadius:4,background:used>=8?'var(--dm-amber-500)':'var(--dm-green-500)',transition:'width .3s var(--ease-serve)'}}/></div>
+        {used>=8&&<span style={{display:'block',marginTop:7,font:'500 11.5px/16px var(--font-ui)',color:'var(--dm-amber-700)'}}>استُهلك الاستحقاق — الوجبات الإضافية هذا الأسبوع على حسابك عند الدفع.</span>}
+      </div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',margin:'18px 2px 0'}}>
+        <span className="micro">الجدول الثابت</span>
+        <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>الأيام المقفلة قيد الطبخ</span>
+      </div>
+      {days.map((x,i)=><div key={x.d} className="card" style={{padding:'12px 14px',display:'flex',alignItems:'center',gap:12,opacity:x.on?1:.62}}>
+        <div style={{width:52,flex:'none',textAlign:'center'}}>
+          <b style={{font:'700 13px var(--font-display)',display:'block'}}>{x.d}</b>
+          {x.locked?<span style={{display:'inline-flex',alignItems:'center',gap:3,font:'600 9.5px var(--font-ui)',color:'var(--st-paused-fg)'}}><Lock/>مقفل</span>
+          :<button role="switch" aria-checked={x.on} onClick={()=>upd(i,{on:!x.on})} style={{appearance:'none',cursor:'pointer',width:34,height:20,borderRadius:'var(--r-pill)',border:0,background:x.on?'var(--dm-green-500)':'var(--dm-sand-2)',position:'relative'}}><i style={{position:'absolute',top:2.5,insetInlineStart:x.on?17:2.5,width:15,height:15,borderRadius:'50%',background:'var(--dm-surface)',boxShadow:'var(--sh-1)',transition:'inset-inline-start .15s'}}/></button>}
+        </div>
+        <div style={{flex:1,minWidth:0}}>
+          {x.meal?<React.Fragment>
+            <b style={{display:'block',font:'600 13.5px/18px var(--font-display)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{x.meal}</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{x.k}{x.qty>1?` · ×${AI(x.qty)}`:''}</span>
+          </React.Fragment>
+          :<span style={{font:'500 13px var(--font-ui)',color:'var(--dm-ink-3)'}}>{x.on?'ما اخترت وجبة':'يوم إجازة'}</span>}
+        </div>
+        {!x.locked&&x.on&&<div style={{display:'flex',alignItems:'center',gap:6,flex:'none'}}>
+          <div style={{display:'flex',alignItems:'center',border:'1.5px solid var(--dm-line-strong)',borderRadius:'var(--r-pill)',background:'var(--dm-surface)'}}>
+            <button onClick={()=>upd(i,{qty:Math.max(1,x.qty-1)})} aria-label="أقل" style={{appearance:'none',border:0,background:'none',cursor:'pointer',width:26,height:28,font:'700 14px var(--font-ui)',color:x.qty>1?'var(--dm-ink)':'var(--dm-ink-3)'}}>−</button>
+            <b style={{font:'700 13px var(--font-display)',width:14,textAlign:'center'}}>{AI(x.qty)}</b>
+            <button onClick={()=>upd(i,{qty:Math.min(3,x.qty+1)})} aria-label="أكثر" style={{appearance:'none',border:0,background:'none',cursor:'pointer',width:26,height:28,font:'700 14px var(--font-ui)',color:'var(--dm-ink)'}}>+</button>
+          </div>
+          <a href="./meal-selection-calendar-ar.html" style={{font:'600 12px var(--font-ui)'}}>{x.meal?'بدّل':'اختر'}</a>
+        </div>}
+      </div>)}
+      <div className="card" style={{padding:'12px 14px',display:'flex',alignItems:'center',gap:11,marginTop:18}}>
+        <div className="dm-photo" style={{width:46,height:46,flex:'none',borderRadius:12}}><span className="dm-photo-note" style={{fontSize:6.5}}>photo</span></div>
+        <div style={{flex:1,minWidth:0}}>
+          <b style={{display:'block',font:'600 14px/19px var(--font-display)'}}>غداً · الاثنين ١٩</b>
+          <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>سلمون مشوي مع كينوا · المقر الرئيسي</span>
+        </div>
+        <StatusBadge status="accepted" locale="ar" size="sm"/>
+      </div>
+      <div style={{margin:'14px 2px 0',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>تفضّل الطلب يوماً بيوم؟ التعاونية تسمح بالنمطين.</div>
+    </div>
+    {sheet&&<div style={{position:'absolute',inset:0,background:'rgba(31,38,30,.42)',zIndex:6}} data-screen-label="ورقة الفروع">
+      <div style={{position:'absolute',insetInline:0,bottom:0,background:'var(--dm-paper)',borderRadius:'var(--r-sheet) var(--r-sheet) 0 0',boxShadow:'var(--sh-3)',padding:'10px 24px 26px',animation:'sheetUp var(--dur-sheet) var(--ease-serve) both'}}>
+        <div style={{width:40,height:4.5,borderRadius:'var(--r-pill)',background:'var(--dm-line-strong)',margin:'4px auto 12px'}}/>
+        <b style={{font:'700 var(--fs-d2)/34px var(--font-display)'}}>لأي فرع نوصل؟</b>
+        <span style={{display:'block',font:'400 12.5px/18px var(--font-ui)',color:'var(--dm-ink-2)',margin:'4px 0 12px'}}>عناوين التعاونية المعتمدة. التغيير يسري على الطلبات غير المقفلة — من الثلاثاء ٢٠.</span>
+        <div style={{display:'flex',flexDirection:'column',gap:8}}>
+          {BRANCHES.map((b,i)=><button key={b} onClick={()=>{setBranch(i);setSheet(false);}} style={{appearance:'none',cursor:'pointer',textAlign:'start',display:'flex',alignItems:'center',gap:11,background:'var(--dm-surface)',border:branch===i?'2px solid var(--dm-green-500)':'1px solid var(--dm-line)',borderRadius:'var(--r-ctl)',padding:'12px 14px'}}>
+            <i style={{width:12,height:12,borderRadius:'50%',flex:'none',border:branch===i?'4px solid var(--dm-green-500)':'2px solid var(--dm-line-strong)'}}/>
+            <span style={{font:'600 14px var(--font-ui)'}}>{b}</span>
+          </button>)}
+        </div>
+      </div>
+    </div>}
+    <TabBar active="subs" locale="ar"/>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

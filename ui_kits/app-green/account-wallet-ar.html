@@ -1,0 +1,120 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Account & Wallet — Arabic (Green)" subtitle="مركز الحساب والمحفظة بالعربية — المعاملات بأرقام هندية ومبدّل اللغة بارز" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — حسابي</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 90px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);margin-top:12px}
+.micro{font:600 11.5px var(--font-ui);color:var(--dm-ink-3)}
+.rowbtn{appearance:none;border:0;background:none;cursor:pointer;width:100%;display:flex;align-items:center;gap:12px;padding:13px 16px;text-align:start;font:600 14.5px var(--font-ui);color:var(--dm-ink)}
+.rowbtn+.rowbtn{border-top:1px dashed var(--dm-line)}
+</style></head>
+<body data-screen-label="Account & Wallet (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button,TabBar}=window.DailymealzAppRedesignBrief_310f67;
+const AI=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const TXNS=[
+{t:'مكافأة دعوة — انضمت نورة',d:'الأربعاء ١٤ يناير',v:'+٣٠٫٠٠',pos:true},
+{t:'استرداد — توصيل متعثر الثلاثاء ٦',d:'الثلاثاء ٦ يناير',v:'+٣٨٫٠٠',pos:true},
+{t:'خُصم من تجديد التوازن',d:'الأحد ٤ يناير',v:'−٥٠٫٠٠'},
+{t:'مكافأة سلسلة التقييم',d:'الخميس ١ يناير',v:'+١٢٫٠٠',pos:true}];
+function Chev(){return <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--dm-ink-3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{flex:'none',marginInlineStart:'auto',transform:'scaleX(-1)'}}><path d="m7.5 4.5 5.5 5.5-5.5 5.5"/></svg>;}
+function Dot(){return <i style={{width:34,height:34,borderRadius:'50%',background:'var(--dm-sand)',flex:'none',display:'flex',alignItems:'center',justifyContent:'center'}}><i style={{width:10,height:10,borderRadius:'50%',background:'var(--dm-ink-2)',opacity:.55}}/></i>;}
+function App(){
+  const [view,setView]=React.useState('hub');
+  if(view==='wallet')return <div className="app" data-screen-label="المحفظة والبطاقات">
+    <div style={{display:'flex',gap:12,alignItems:'center',padding:'18px 20px 0'}}>
+      <button onClick={()=>setView('hub')} aria-label="رجوع" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',cursor:'pointer',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{transform:'scaleX(-1)'}}><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+      <h1 style={{margin:0,font:'600 21px var(--font-display)'}}>المحفظة</h1>
+    </div>
+    <div className="scroll">
+      <div className="dm-dots card" style={{background:'var(--dm-ink)',border:0,padding:'18px 18px 16px'}}>
+        <span className="micro" style={{color:'var(--dm-sand-2)'}}>الرصيد</span>
+        <div style={{display:'flex',alignItems:'baseline',gap:6,marginTop:4}}>
+          <b style={{font:'700 40px/46px var(--font-display)',color:'var(--dm-paper)'}}>٣٠٫٠٠</b>
+          <span style={{font:'600 14px var(--font-ui)',color:'var(--dm-sand-2)'}}>ر.س</span>
+        </div>
+        <span style={{font:'400 12px/17px var(--font-ui)',color:'var(--dm-sand-2)'}}>يُطبق تلقائياً في عملية الدفع القادمة.</span>
+      </div>
+      <div className="card" style={{padding:'4px 0'}}>
+        <div style={{padding:'12px 16px 4px'}}><span className="micro">المعاملات</span></div>
+        {TXNS.map((x,i)=><div key={i} style={{display:'flex',alignItems:'center',gap:12,padding:'11px 16px',borderTop:i?'1px dashed var(--dm-line)':'none'}}>
+          <div style={{flex:1,minWidth:0}}><b style={{display:'block',font:'600 13.5px/18px var(--font-ui)'}}>{x.t}</b>
+          <span style={{font:'400 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{x.d}</span></div>
+          <b style={{font:'700 14px var(--font-display)',color:x.pos?'var(--dm-pine-700)':'var(--dm-ink)',flex:'none',whiteSpace:'nowrap'}}>{x.v} <span style={{font:'600 10px var(--font-ui)'}}>ر.س</span></b>
+        </div>)}
+      </div>
+      <div className="card" style={{padding:'4px 0'}}>
+        <div style={{padding:'12px 16px 4px'}}><span className="micro">البطاقات المحفوظة</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:12,padding:'11px 16px'}}>
+          <span style={{background:'var(--dm-sand)',borderRadius:8,padding:'6px 9px',font:'700 10px var(--font-ui)',color:'var(--dm-ink-2)',flex:'none'}}>مدى</span>
+          <div style={{flex:1}}><b style={{font:'600 14px var(--font-ui)'}}>·· ٤٠٢١</b><span style={{display:'block',font:'400 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>تنتهي ٠٨/٢٧ · الافتراضية</span></div>
+          <button style={{appearance:'none',border:0,background:'none',cursor:'pointer',font:'600 12.5px var(--font-ui)',color:'var(--dm-terra-700)'}}>إزالة</button>
+        </div>
+        <div style={{padding:'4px 16px 14px'}}><a href="./payment-cards.html"><Button variant="outline" size="sm">إدارة البطاقات</Button></a></div>
+      </div>
+      <span style={{display:'block',margin:'12px 4px 0',font:'400 11px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>البطاقات تُحفظ لدى شريك الدفع، وليس على جهازك.</span>
+    </div>
+    <TabBar active="account" locale="ar"/>
+  </div>;
+  return <div className="app" data-screen-label="مركز الحساب">
+    <div className="dm-dots" style={{padding:'22px 20px 16px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:13}}>
+        <div style={{width:56,height:56,borderRadius:'50%',background:'var(--dm-green-100)',display:'flex',alignItems:'center',justifyContent:'center',font:'700 22px var(--font-display)',color:'var(--dm-green-700)',flex:'none'}}>ف</div>
+        <div style={{flex:1,minWidth:0}}>
+          <h1 style={{margin:0,font:'600 var(--fs-d2)/34px var(--font-display)'}}>فيصل الحربي</h1>
+          <span style={{font:'400 var(--fs-caption)/var(--lh-caption) var(--font-ui)',color:'var(--dm-ink-2)'}}><span dir="ltr" style={{unicodeBidi:'isolate'}}>+966 55 210 4830</span> · <a href="#edit" style={{fontWeight:600}}>عدّل الملف</a></span>
+        </div>
+        <span style={{background:'var(--dm-sky-100)',color:'var(--dm-sky-700)',borderRadius:'var(--r-pill)',padding:'4px 11px',font:'700 10.5px var(--font-ui)',flex:'none'}}>التعاونية · شركات</span>
+      </div>
+    </div>
+    <div className="scroll">
+      <div style={{display:'flex',gap:10}}>
+        <button onClick={()=>setView('wallet')} style={{flex:1,appearance:'none',cursor:'pointer',textAlign:'start',background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:'13px 15px'}}>
+          <span className="micro">المحفظة</span>
+          <b style={{display:'block',font:'700 24px/32px var(--font-display)'}}>٣٠٫٠٠ <span style={{font:'600 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>ر.س</span></b>
+          <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>بطاقة واحدة محفوظة</span>
+        </button>
+        <div style={{flex:1,background:'var(--dm-green-100)',borderRadius:'var(--r-card)',padding:'13px 15px'}}>
+          <span className="micro" style={{color:'var(--dm-green-700)'}}>النقاط</span>
+          <b style={{display:'block',font:'700 24px/32px var(--font-display)',color:'var(--dm-green-700)'}}>٤٢٠</b>
+          <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-2)'}}>٨٠ نقطة تفصلك عن وجبة مجانية</span>
+        </div>
+      </div>
+      <div className="card" style={{padding:'14px 16px',display:'flex',alignItems:'center',gap:12}}>
+        <div style={{flex:1}}><b style={{font:'600 14px/19px var(--font-display)'}}>ادعُ صديقاً وتحصلان على ٣٠ نقطة</b>
+        <span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>رمزك <b dir="ltr" style={{fontFamily:'var(--font-mono)',color:'var(--dm-ink)',unicodeBidi:'isolate'}}>FAISAL30</b> — انضم عن طريقه صديقان.</span></div>
+        <Button variant="secondary" size="sm" style={{flex:'none'}}>شارك</Button>
+      </div>
+      <div className="card" style={{padding:'2px 0'}}>
+        {[['العناوين','مكتب العليا · المنزل','./location-address-ar.html'],['التفضيلات الغذائية','بدون محار · تُفلتر قوائمك','./dietary-preferences.html'],['هدف السعرات اليومي','٢٬٢١٠ سعرة/يوم · الغداء ≈ ٧٧٠','./nutrition-target.html'],['الإشعارات','التنبيهات مفعّلة · واتساب مفعّل'],['استشارة تغذية','خطة يوم كامل · ١٢٠ ر.س','./consultation-booking.html']].map(([t,s,href])=>
+        href?<a key={t} className="rowbtn" href={href} style={{textDecoration:'none'}}><Dot/><span style={{flex:1,minWidth:0}}>{t}<span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span></span><Chev/></a>
+        :<button key={t} className="rowbtn"><Dot/><span style={{flex:1,minWidth:0}}>{t}<span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span></span><Chev/></button>)}
+      </div>
+      <div className="card" style={{padding:'13px 16px',display:'flex',alignItems:'center',gap:12}}>
+        <div style={{flex:1}}><b style={{font:'600 14.5px var(--font-ui)'}}>English</b>
+        <span style={{display:'block',font:'400 11.5px var(--font-ui)',color:'var(--dm-ink-3)'}}>بدّل لغة التطبيق — الاتجاه ينقلب إلى LTR</span></div>
+        <a href="./account-wallet.html" style={{flex:'none'}}><Button variant="outline" size="sm">English</Button></a>
+      </div>
+      <div className="card" style={{padding:'2px 0'}}>
+        {[['المنظمة','التعاونية · الطلب الفردي مسموح'],['محادثة الدعم','نرد عادة خلال دقائق'],['الشروط وشهادة الضريبة وحقوق المستفيد','']].map(([t,s])=>
+        <button key={t} className="rowbtn"><span style={{flex:1,minWidth:0}}>{t}{s&&<span style={{display:'block',font:'400 11.5px/16px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s}</span>}</span><Chev/></button>)}
+      </div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',margin:'14px 4px 0'}}>
+        <button style={{appearance:'none',border:0,background:'none',cursor:'pointer',padding:0,font:'600 13px var(--font-ui)',color:'var(--dm-terra-700)'}}>حذف الحساب</button>
+        <span dir="ltr" style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>v3.1.0</span>
+      </div>
+      <span style={{display:'block',margin:'6px 4px 0',font:'400 10.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>الحذف يسأل مرة واحدة، ويوضح ما يُحفظ لأنظمة الضرائب، ويكتمل داخل التطبيق — بلا مكالمات.</span>
+    </div>
+    <TabBar active="account" locale="ar"/>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

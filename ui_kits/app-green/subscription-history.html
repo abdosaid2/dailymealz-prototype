@@ -1,0 +1,74 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="Subscription History" subtitle="Past plans list + the eaten-meals archive with your ratings and a repeat action" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — History</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.scroll{flex:1;overflow-y:auto;padding:0 20px 30px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.card{background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);margin-top:10px;padding:14px}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+.seg{flex:1;appearance:none;cursor:pointer;border:0;border-radius:var(--r-pill);height:40px;font:600 13.5px var(--font-ui);background:none;color:var(--dm-ink-2)}
+.seg.on{background:var(--dm-ink);color:var(--dm-paper)}
+</style></head>
+<body data-screen-label="Subscription History (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const SUBS=[
+{name:'Balanced · 20 lunches',range:'4 Jan → 4 Feb 2026',state:'Active',on:true,meta:'12 left · renews Feb 4'},
+{name:'Balanced · 20 lunches',range:'1 Dec → 31 Dec 2025',state:'Completed',meta:'20 delivered · avg ★ 4.6'},
+{name:'Light · 12 lunches',range:'19 Oct → 6 Nov 2025',state:'Completed',meta:'12 delivered · avg ★ 4.4'},
+{name:'Executive · 12 lunches',range:'1 Sep → 12 Sep 2025',state:'Cancelled',meta:'4 delivered · 8 refunded to wallet'}];
+const MEALS=[
+{n:'Chicken Musakhan Roll',k:'Zad House',d:'Sat 17 Jan',r:5,times:6},
+{n:'Grilled Salmon & Quinoa',k:'Nabta',d:'Thu 15 Jan',r:4,times:3},
+{n:'Lamb Kabsa',k:'Wafra Kitchen',d:'Wed 14 Jan',r:5,times:4},
+{n:'Pomegranate Quinoa Salad',k:'Lemona',d:'Tue 13 Jan',r:3,times:1}];
+function App(){
+  const [tab,setTab]=React.useState('plans');
+  return <div className="app">
+    <div style={{display:'flex',gap:12,alignItems:'center',padding:'18px 20px 8px'}}>
+      <a href="./subscription-manage.html" aria-label="Back" style={{width:44,height:44,borderRadius:'50%',border:'1.5px solid var(--dm-line-strong)',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',color:'var(--dm-ink)',flex:'none'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></a>
+      <h1 style={{margin:0,font:'600 21px var(--font-display)',flex:1}}>History</h1>
+    </div>
+    <div style={{margin:'6px 20px 0',display:'flex',gap:4,background:'var(--dm-sand)',borderRadius:'var(--r-pill)',padding:4}}>
+      <button className={'seg'+(tab==='plans'?' on':'')} onClick={()=>setTab('plans')}>Subscriptions</button>
+      <button className={'seg'+(tab==='meals'?' on':'')} onClick={()=>setTab('meals')}>Meals I've eaten</button>
+    </div>
+    <div className="scroll" style={{paddingTop:8}}>
+      {tab==='plans'?<div data-screen-label="Past subscriptions">
+        {SUBS.map(s=><div key={s.range} className="card" style={{display:'flex',alignItems:'center',gap:12,opacity:s.on?1:.92}}>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{font:'600 14.5px/18px var(--font-display)'}}>{s.name}</b>
+            <span style={{display:'block',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-2)'}}>{s.range}</span>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{s.meta}</span>
+          </div>
+          <div style={{display:'flex',flexDirection:'column',alignItems:'flex-end',gap:7,flex:'none'}}>
+            <span style={{background:s.state==='Active'?'var(--dm-green-100)':s.state==='Cancelled'?'var(--st-failed-bg)':'var(--st-delivered-bg)',color:s.state==='Active'?'var(--dm-green-700)':s.state==='Cancelled'?'var(--st-failed-fg)':'var(--st-delivered-fg)',borderRadius:'var(--r-pill)',padding:'3px 10px',font:'600 11px var(--font-ui)'}}>{s.state}</span>
+            {s.state==='Completed'&&<a href="./plan-details.html" style={{font:'600 12px var(--font-ui)'}}>Renew this</a>}
+          </div>
+        </div>)}
+        <span style={{display:'block',margin:'12px 2px 0',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>Receipts and VAT invoices live on each subscription's detail page.</span>
+      </div>
+      :<div data-screen-label="Meals archive">
+        {MEALS.map(m=><div key={m.n} className="card" style={{display:'flex',alignItems:'center',gap:12}}>
+          <div className="dm-photo" style={{width:46,height:46,flex:'none',borderRadius:12}}><span className="dm-photo-note" style={{fontSize:6.5}}>photo</span></div>
+          <div style={{flex:1,minWidth:0}}>
+            <b style={{display:'block',font:'600 13.5px/17px var(--font-display)',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{m.n}</b>
+            <span style={{font:'500 11px var(--font-ui)',color:'var(--dm-ink-3)'}}>{m.k} · last {m.d} · eaten ×{m.times}</span>
+            <span style={{display:'block',font:'500 12px var(--font-ui)',color:'var(--dm-green-600)'}}>{'★'.repeat(m.r)}<span style={{color:'var(--dm-sand-2)'}}>{'★'.repeat(5-m.r)}</span></span>
+          </div>
+          <a href="./meal-details.html" style={{flex:'none'}}><Button variant="outline" size="sm">Eat again</Button></a>
+        </div>)}
+        <span style={{display:'block',margin:'12px 2px 0',font:'400 11.5px/15px var(--font-ui)',color:'var(--dm-ink-3)'}}>"Eat again" pins the dish to your next open day when the kitchen runs it.</span>
+      </div>}
+    </div>
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>
