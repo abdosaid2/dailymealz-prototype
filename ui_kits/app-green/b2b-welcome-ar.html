@@ -1,0 +1,103 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="B2B Welcome — Arabic (Green)" subtitle="لحظة التعرّف بعد رمز التحقق: أنت على خطة غداء التعاونية — مع حالات عدم التطابق وتعدد الشركات والمرور للمستهلك" -->
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ديلي ميلز — أهلاً</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.micro{font:600 11.5px var(--font-ui);color:var(--dm-ink-3)}
+.opt{appearance:none;cursor:pointer;text-align:start;display:flex;gap:12px;align-items:flex-start;background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:14px 15px;width:100%}
+.opt.on{border:2px solid var(--dm-green-500);box-shadow:var(--sh-2);padding:13px 14px}
+.radio{width:12px;height:12px;border-radius:50%;flex:none;margin-top:3px;border:2px solid var(--dm-line-strong)}
+.on .radio{border:4px solid var(--dm-green-500)}
+.demo{appearance:none;cursor:pointer;border:1px solid var(--dm-line-strong);background:var(--dm-surface);color:var(--dm-ink-2);border-radius:var(--r-pill);padding:3px 9px;font:600 10px var(--font-ui)}
+.demo.on{background:var(--dm-ink);border-color:var(--dm-ink);color:var(--dm-paper)}
+</style></head>
+<body data-screen-label="B2B Welcome (AR, Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const PHONE='+٩٦٦ ٥٥ ••• ٢١٤';
+const STATES=[['new','تطابق جديد'],['back','عائد'],['nomatch','بدون تطابق'],['multi','شركتان'],['consumer','خارج القوائم']];
+function App(){
+  const [st,setSt]=React.useState('new');
+  const [co,setCo]=React.useState(0);
+  const Hero=({returning})=><div style={{background:'var(--dm-pine-700)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-2)',padding:'26px 22px',color:'#fff',textAlign:'center'}} data-screen-label="بطاقة التعرّف">
+    <div style={{width:64,height:64,borderRadius:20,margin:'0 auto',background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 27px var(--font-display)',color:'var(--dm-sky-700)',boxShadow:'var(--sh-1)'}}>ت</div>
+    <span className="micro" style={{display:'block',marginTop:14,color:'var(--dm-green-100)'}}>{returning?'أهلاً بعودتك':'تعرّفنا عليك من رقمك'}</span>
+    <h1 style={{margin:'6px 0 0',font:'700 25px/34px var(--font-display)',textWrap:'pretty'}}>{returning?'الغداء ما زال على التعاونية':'أنت على خطة غداء التعاونية'}</h1>
+    <p style={{margin:'10px 0 0',font:'500 13.5px/20px var(--font-ui)',color:'var(--dm-green-100)'}}>٨ وجبات في الأسبوع · الأحد–الخميس · في المكتب</p>
+    <span style={{display:'inline-flex',alignItems:'center',gap:6,marginTop:14,background:'rgba(255,255,255,.13)',borderRadius:'var(--r-pill)',padding:'5px 12px',font:'600 11px var(--font-ui)'}}>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--dm-green-300)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 12.5 10 18 19.5 6.5"/></svg>
+      <span dir="ltr">{PHONE}</span> مسجّل في القائمة
+    </span>
+  </div>;
+  return <div className="app">
+    <div style={{padding:'16px 20px 0',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}}>
+      <span className="micro">مسجّل الدخول · <span dir="ltr">{PHONE}</span></span>
+      <div style={{display:'flex',gap:4,flexWrap:'wrap',justifyContent:'flex-end'}} data-screen-label="مبدّل الحالات">
+        {STATES.map(([k,l])=><button key={k} className={'demo'+(st===k?' on':'')} onClick={()=>setSt(k)}>{l}</button>)}
+      </div>
+    </div>
+    {(st==='new'||st==='back')&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label={st==='new'?'تطابق — أول مرة':'تطابق — عائد'}>
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <Hero returning={st==='back'}/>
+        <p style={{margin:'16px 4px 0',font:'400 12.5px/19px var(--font-ui)',color:'var(--dm-ink-2)',textAlign:'center',textWrap:'pretty'}}>{st==='new'?'التعاونية أضافت رقمك إلى قائمتها — بلا أكواد وبلا مراجعة للموارد البشرية.':'جدولك الأسبوعي واستحقاقك بانتظارك كما تركتهما.'}</p>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href={st==='new'?'./b2b-setup.html':'./b2b-recurring-ar.html'} style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>{st==='new'?'جهّز وجباتي — دقيقتان':'إلى أسبوعي'}</Button></a>
+        <a href="./home-plans-ar.html" style={{display:'block',textAlign:'center',marginTop:12,font:'600 12.5px var(--font-ui)'}}>{st==='new'?'ليس الآن — تصفّح الخطط الشخصية':'تصفّح الخطط الشخصية بدلاً من ذلك'}</a>
+      </div>
+    </div>}
+    {st==='nomatch'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="متوقّع بلا تطابق">
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:'24px 22px',textAlign:'center'}}>
+          <div style={{width:64,height:64,borderRadius:20,margin:'0 auto',background:'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 26px var(--font-display)',color:'var(--dm-ink-3)'}}>؟</div>
+          <h1 style={{margin:'14px 0 0',font:'700 21px/30px var(--font-display)',textWrap:'pretty'}}>ما قدرنا نطابق رقمك مع أي شركة</h1>
+          <p style={{margin:'10px 0 0',font:'400 13px/20px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>إذا كانت شركتك تغطي الغداء، اطلب من الموارد البشرية إضافة <b style={{color:'var(--dm-ink)'}} dir="ltr">{PHONE}</b> إلى القائمة — تظهر الميزة عند تسجيل الدخول القادم.</p>
+        </div>
+        <div style={{margin:'12px 0 0',background:'var(--dm-sand)',borderRadius:'var(--r-ctl)',padding:'10px 13px',font:'400 12px/18px var(--font-ui)',color:'var(--dm-ink-2)',textAlign:'center'}}>لن تخسر شيئاً — الوجبات التي تطلبها الآن تبقى على حسابك الشخصي.</div>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./home-plans-ar.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>أكمل على خطة شخصية</Button></a>
+        <a href="./auth-login-ar.html" style={{display:'block',textAlign:'center',marginTop:12,font:'600 12.5px var(--font-ui)'}}>جرّب رقماً آخر</a>
+      </div>
+    </div>}
+    {st==='multi'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="اختيار بين شركتين">
+      <span className="micro" style={{marginTop:22}}>نادر — قائمتان</span>
+      <h1 style={{margin:'4px 0 4px',font:'700 var(--fs-d2)/34px var(--font-display)',textWrap:'pretty'}}>شركتان تغطيان رقمك</h1>
+      <span style={{font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)'}}>اختر أين يتبعك الغداء — يمكنك التبديل من صفحة ميزتك.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:16}}>
+        {[['التعاونية','٨ وجبات أسبوعياً · العليا، جرانادا، السفارات','ت','var(--dm-sky-700)'],['علم','٥ وجبات أسبوعياً · المدينة الرقمية','ع','var(--dm-plum-700)']].map(([n,l,ch,c],i)=>
+        <button key={n} className={'opt'+(co===i?' on':'')} onClick={()=>setCo(i)}>
+          <i className="radio"/>
+          <span style={{display:'flex',gap:11,alignItems:'center',flex:1,minWidth:0}}>
+            <span style={{width:38,height:38,borderRadius:12,background:i===co?'var(--dm-paper)':'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 16px var(--font-display)',color:c,flex:'none'}}>{ch}</span>
+            <span><b style={{font:'600 15px/20px var(--font-display)',display:'block'}}>{n}</b>
+            <span style={{font:'400 12px/17px var(--font-ui)',color:'var(--dm-ink-2)'}}>{l}</span></span>
+          </span>
+        </button>)}
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./b2b-setup.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>أكمل مع {co===0?'التعاونية':'علم'}</Button></a>
+      </div>
+    </div>}
+    {st==='consumer'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="خارج القوائم — مرور مباشر">
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <div style={{border:'1.5px dashed var(--dm-line-strong)',borderRadius:'var(--r-card)',padding:'22px 20px',textAlign:'center'}}>
+          <span className="micro">لا تُعرض أي شاشة</span>
+          <p style={{margin:'8px 0 0',font:'400 13px/20px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>أغلب الناس: الرقم ليس على أي قائمة، فلا لحظة تعرّف — يكمل تسجيل الدخول مباشرة إلى تجربة المستهلك المعتادة.</p>
+        </div>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./home-plans-ar.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>أكمل إلى ديلي ميلز</Button></a>
+      </div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>

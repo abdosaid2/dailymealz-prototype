@@ -1,0 +1,106 @@
+<!-- @dsCard group="App Screens (Green)" viewport="390x844" name="B2B — Recognition Welcome" subtitle="Post-OTP roster match: 'You're on Tawuniya's lunch plan' — plus returning, not-matched helper, multi-company picker, consumer pass-through" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dailymealz — Welcome</title>
+<link rel="stylesheet" href="../../styles-green.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+html,body{height:100%}
+body{width:390px;height:844px;margin:0 auto;overflow:hidden}
+#root,.app{height:100%;display:flex;flex-direction:column}
+.micro{font:600 var(--fs-micro)/var(--lh-micro) var(--font-ui);letter-spacing:.06em;text-transform:uppercase;color:var(--dm-ink-3)}
+.opt{appearance:none;cursor:pointer;text-align:start;display:flex;gap:12px;align-items:flex-start;background:var(--dm-surface);border:1px solid var(--dm-line);border-radius:var(--r-card);box-shadow:var(--sh-1);padding:14px 15px;width:100%}
+.opt.on{border:2px solid var(--dm-green-500);box-shadow:var(--sh-2);padding:13px 14px}
+.radio{width:12px;height:12px;border-radius:50%;flex:none;margin-top:3px;border:2px solid var(--dm-line-strong)}
+.on .radio{border:4px solid var(--dm-green-500)}
+.demo{appearance:none;cursor:pointer;border:1px solid var(--dm-line-strong);background:var(--dm-surface);color:var(--dm-ink-2);border-radius:var(--r-pill);padding:3px 9px;font:600 10px var(--font-ui)}
+.demo.on{background:var(--dm-ink);border-color:var(--dm-ink);color:var(--dm-paper)}
+</style></head>
+<body data-screen-label="B2B Recognition Welcome (Green)"><div id="root"></div>
+<script type="text/babel">
+const {Button}=window.DailymealzAppRedesignBrief_310f67;
+const PHONE='+966 55 ••• 214';
+const STATES=[['new','New match'],['back','Returning'],['nomatch','No match'],['multi','2 companies'],['consumer','Not on roster']];
+function Tile({ch='T',color='var(--dm-sky-700)',size=64}){return <div style={{width:size,height:size,borderRadius:size*.32,background:'var(--dm-surface)',display:'flex',alignItems:'center',justifyContent:'center',font:`800 ${Math.round(size*.42)}px var(--font-display)`,color,flex:'none',boxShadow:'var(--sh-1)'}}>{ch}</div>;}
+function Hero({returning}){
+  return <div style={{background:'var(--dm-pine-700)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-2)',padding:'26px 22px',color:'#fff',textAlign:'center'}} data-screen-label="Recognition hero">
+    <div style={{display:'flex',justifyContent:'center'}}><Tile/></div>
+    <span className="micro" style={{display:'block',marginTop:14,color:'var(--dm-green-100)'}}>{returning?'Welcome back':'Matched from your number'}</span>
+    <h1 style={{margin:'6px 0 0',font:'700 26px/32px var(--font-display)',textWrap:'pretty'}}>{returning?'Lunch is still on Tawuniya':"You're on Tawuniya's lunch plan"}</h1>
+    <p style={{margin:'10px 0 0',font:'500 13.5px/19px var(--font-ui)',color:'var(--dm-green-100)'}}>8 lunches a week · Sun–Thu · at the office</p>
+    <span style={{display:'inline-flex',alignItems:'center',gap:6,marginTop:14,background:'rgba(255,255,255,.13)',borderRadius:'var(--r-pill)',padding:'5px 12px',font:'600 11px var(--font-ui)'}}>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--dm-green-300)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 12.5 10 18 19.5 6.5"/></svg>
+      {PHONE} is on the roster
+    </span>
+  </div>;
+}
+function App(){
+  const [st,setSt]=React.useState('new');
+  const [co,setCo]=React.useState(0);
+  return <div className="app">
+    <div style={{padding:'16px 20px 0',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}}>
+      <span className="micro">Signed in · {PHONE}</span>
+      <div style={{display:'flex',gap:4,flexWrap:'wrap',justifyContent:'flex-end'}} data-screen-label="Demo state switcher">
+        {STATES.map(([k,l])=><button key={k} className={'demo'+(st===k?' on':'')} onClick={()=>setSt(k)}>{l}</button>)}
+      </div>
+    </div>
+    {(st==='new'||st==='back')&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label={st==='new'?'Matched — first time':'Matched — returning'}>
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <Hero returning={st==='back'}/>
+        <p style={{margin:'16px 4px 0',font:'400 12.5px/18px var(--font-ui)',color:'var(--dm-ink-2)',textAlign:'center',textWrap:'pretty'}}>{st==='new'?'Tawuniya added your number to its roster — no codes, nothing to arrange with HR.':'Your standing week and allowance are right where you left them.'}</p>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href={st==='new'?'./b2b-setup.html':'./b2b-recurring.html'} style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>{st==='new'?'Set up my lunches — 2 min':'Go to my week'}</Button></a>
+        <a href="./home-plans.html" style={{display:'block',textAlign:'center',marginTop:12,font:'600 12.5px var(--font-ui)'}}>{st==='new'?'Not now — browse personal plans':'Browse personal plans instead'}</a>
+      </div>
+    </div>}
+    {st==='nomatch'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="Expected but not matched">
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <div style={{background:'var(--dm-surface)',border:'1px solid var(--dm-line)',borderRadius:'var(--r-card)',boxShadow:'var(--sh-1)',padding:'24px 22px',textAlign:'center'}}>
+          <div style={{width:64,height:64,borderRadius:20,margin:'0 auto',background:'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 26px var(--font-display)',color:'var(--dm-ink-3)'}}>?</div>
+          <h1 style={{margin:'14px 0 0',font:'700 22px/28px var(--font-display)',textWrap:'pretty'}}>We couldn't match your number to a company</h1>
+          <p style={{margin:'10px 0 0',font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>If your employer covers lunch, ask HR to add <b style={{color:'var(--dm-ink)',whiteSpace:'nowrap'}}>{PHONE}</b> to the roster — the benefit appears the next time you log in.</p>
+        </div>
+        <div style={{margin:'12px 0 0',background:'var(--dm-sand)',borderRadius:'var(--r-ctl)',padding:'10px 13px',font:'400 12px/17px var(--font-ui)',color:'var(--dm-ink-2)',textAlign:'center'}}>Nothing lost meanwhile — meals you order stay on your personal account.</div>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./home-plans.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Continue on a personal plan</Button></a>
+        <a href="./auth-login.html" style={{display:'block',textAlign:'center',marginTop:12,font:'600 12.5px var(--font-ui)'}}>Try a different number</a>
+      </div>
+    </div>}
+    {st==='multi'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="Multi-company picker">
+      <span className="micro" style={{marginTop:22}}>Rare — two rosters</span>
+      <h1 style={{margin:'4px 0 4px',font:'700 var(--fs-d2)/var(--lh-d2) var(--font-display)',textWrap:'pretty'}}>Two companies cover your number</h1>
+      <span style={{font:'400 13px/18px var(--font-ui)',color:'var(--dm-ink-2)'}}>Pick where lunch should follow you — you can switch in your benefit page.</span>
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:16}}>
+        {[['Tawuniya','8 lunches / week · Olaya, Granada, DQ','T','var(--dm-sky-700)'],['Elm','5 lunches / week · Digital City','E','var(--dm-plum-700)']].map(([n,l,ch,c],i)=>
+        <button key={n} className={'opt'+(co===i?' on':'')} onClick={()=>setCo(i)}>
+          <i className="radio"/>
+          <span style={{display:'flex',gap:11,alignItems:'center',flex:1,minWidth:0}}>
+            <span style={{width:38,height:38,borderRadius:12,background:i===co?'var(--dm-paper)':'var(--dm-sand)',display:'flex',alignItems:'center',justifyContent:'center',font:'800 16px var(--font-display)',color:c,flex:'none'}}>{ch}</span>
+            <span><b style={{font:'600 15px/19px var(--font-display)',display:'block'}}>{n}</b>
+            <span style={{font:'400 12px/16px var(--font-ui)',color:'var(--dm-ink-2)'}}>{l}</span></span>
+          </span>
+        </button>)}
+      </div>
+      <div style={{flex:1}}/>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./b2b-setup.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Continue with {co===0?'Tawuniya':'Elm'}</Button></a>
+      </div>
+    </div>}
+    {st==='consumer'&&<div style={{flex:1,display:'flex',flexDirection:'column',padding:'0 24px',minHeight:0}} data-screen-label="Not on any roster — pass-through">
+      <div style={{flex:1,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <div style={{border:'1.5px dashed var(--dm-line-strong)',borderRadius:'var(--r-card)',padding:'22px 20px',textAlign:'center'}}>
+          <span className="micro">No screen shown</span>
+          <p style={{margin:'8px 0 0',font:'400 13px/19px var(--font-ui)',color:'var(--dm-ink-2)',textWrap:'pretty'}}>Most people: the number isn't on any roster, so there's no recognition beat — login continues straight to the usual consumer flow.</p>
+        </div>
+      </div>
+      <div style={{padding:'0 0 20px'}}>
+        <a href="./home-plans.html" style={{display:'block'}}><Button block size="lg" style={{width:'100%'}}>Continue to Dailymealz</Button></a>
+      </div>
+    </div>}
+  </div>;}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script></body></html>
